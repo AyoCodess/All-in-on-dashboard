@@ -3,10 +3,23 @@ import { useAuth0 } from '@auth0/auth0-react';
 import LoginButton from './components/Login/LoginButton';
 import LogoutButton from './components/Login/LogoutButton';
 import UserProfile from './components/Login/UserProfile';
+import LandingPage from './Pages/LandingPage';
+import AppContainer from './components/AppContainer';
 
 function App() {
-  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
-    useAuth0();
+  const {
+    loginWithRedirect,
+    loginWithPopup,
+    logout,
+    user,
+    isAuthenticated,
+    isLoading,
+    error,
+  } = useAuth0();
+
+  if (error) {
+    <div>Please try again or contact us at ayo@ayoadesanya.com</div>;
+  }
 
   if (isLoading) {
     <div>Loading...</div>;
@@ -14,12 +27,10 @@ function App() {
 
   return (
     <>
-      <LoginButton loginWithRedirect={loginWithRedirect} />
-      <LogoutButton logout={logout} />
-      {!user && <div className='text-2xl'>Welcome, please login</div>}
-      {user && <div className='text-2xl'>{`Welcome ${user.name}`}</div>}
-
-      {isAuthenticated && <UserProfile user={user} />}
+      <AppContainer>
+        <LandingPage loginType={loginWithPopup} logout={logout} user={user} />
+        {isAuthenticated && <UserProfile user={user} />}
+      </AppContainer>
     </>
   );
 }
