@@ -5,6 +5,7 @@ import LogoutButton from './components/Login/LogoutButton';
 import UserProfile from './components/Login/UserProfile';
 import LandingPage from './Pages/LandingPage';
 import AppContainer from './components/AppContainer';
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   const {
@@ -29,7 +30,12 @@ function App() {
     <>
       <AppContainer>
         <LandingPage loginType={loginWithPopup} logout={logout} user={user} />
-        {isAuthenticated && <UserProfile user={user} />}
+        {isAuthenticated && (
+          <>
+            {/* <UserProfile user={user} /> */}
+            <Dashboard user={user} />
+          </>
+        )}
       </AppContainer>
     </>
   );

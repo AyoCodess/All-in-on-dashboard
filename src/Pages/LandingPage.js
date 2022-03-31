@@ -29,9 +29,13 @@ function LandingPage({ user, loginType, logout }) {
       )}
 
       {user && (
-        <div className='flex gap-5 justify-between mt-6'>
+        <div className='flex items-center gap-5 justify-between mt-6'>
+          {/* // - put image logo here */}
+          <div className=' text-lg sm:text-2xl ml-4 lg:ml-10'>Logo</div>
+          {/* {user && (
+            <div className=' text-lg sm:text-2xl mr-4 lg:mr-10'>{`Welcome...`}</div>
+          )} */}
           {user && <LogoutButton logout={logout} />}
-          {user && <div className='text-2xl'>{`Welcome ${user.name}`}</div>}
         </div>
       )}
     </>
