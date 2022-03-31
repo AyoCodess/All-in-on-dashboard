@@ -1,21 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { Auth0Provider } from '@auth0/auth0-react';
 import { BrowserRouter } from 'react-router-dom';
+import { Auth0ProviderWithHistory } from './auth0-provider-with-history';
+import App from './App';
+import './index.css';
 
 ReactDOM.render(
-  <Auth0Provider
-    domain='dev-hrphul7f.us.auth0.com'
-    clientId='lQMc065mlbkwHRhLyZDGNzaf43J5yRWM'
-    redirectUri={window.location.origin}>
+  <React.StrictMode>
     <BrowserRouter>
-      {' '}
-      <React.StrictMode>
+      <Auth0ProviderWithHistory>
         <App />
-      </React.StrictMode>
+      </Auth0ProviderWithHistory>
     </BrowserRouter>
-  </Auth0Provider>,
+  </React.StrictMode>,
   document.getElementById('root')
 );
