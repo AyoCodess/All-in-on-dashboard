@@ -12,9 +12,8 @@ function Weather() {
       const apiCall = async () => {
         try {
           const response = await axios.get(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=${process.env.REACT_APP_WEATHER_SECRET}&units=metric`
+            `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=d0a10211ea3d36b0a6423a104782130e&units=metric`
           );
-
           setData(response.data);
           setLoading(false);
           setError(false);
@@ -33,10 +32,10 @@ function Weather() {
     setLoading(true);
     if (!navigator.geolocation) {
       console.log('Geolocation is not supported by your browser');
+      setError(true);
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log('3');
           setCoords({
             lat: position.coords.latitude,
             lon: position.coords.longitude,

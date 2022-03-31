@@ -2,8 +2,16 @@ import React from 'react';
 import LoginButton from '../components/Login/LoginButton';
 import LogoutButton from '../components/Login/LogoutButton';
 import UserProfile from '../components/Login/UserProfile';
+import Dashboard from './Dashboard';
 
-function LandingPage({ user, loginType, logout }) {
+function LandingPage({
+  user,
+  loginType,
+  logout,
+  isAuthenticated,
+  newsData,
+  newsError,
+}) {
   return (
     <>
       {!user && (
@@ -26,17 +34,6 @@ function LandingPage({ user, loginType, logout }) {
             />
           </div>
         </>
-      )}
-
-      {user && (
-        <div className='flex items-center gap-5 justify-between mt-6'>
-          {/* // - put image logo here */}
-          <div className=' text-lg sm:text-2xl ml-4 lg:ml-10'>Logo</div>
-          {/* {user && (
-            <div className=' text-lg sm:text-2xl mr-4 lg:mr-10'>{`Welcome...`}</div>
-          )} */}
-          {user && <LogoutButton logout={logout} />}
-        </div>
       )}
     </>
   );
