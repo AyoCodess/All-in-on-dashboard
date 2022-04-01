@@ -65,23 +65,29 @@ function App() {
   };
 
   // - TASKS
+
+  const [onInput, setOnInput] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(false);
+  const [taskTitle, setTaskTitle] = useState();
+  const [taskDescription, setTaskDescription] = useState();
+
   const InitialTask = [
     {
       id: 1,
-      Name: 'Create your first task',
-      Task: 'Think about creating tasks',
+      title: 'Create your first task',
+      task: 'Think about creating tasks',
       status: true,
     },
     {
       id: 2,
-      Name: 'Create your first task',
-      Task: 'Think about creating tasks',
+      title: 'Create your first task',
+      task: 'Think about creating tasks',
       status: false,
     },
     {
       id: 3,
-      Name: 'Create your first task',
-      Task: 'Think about creating tasks',
+      title: 'Create your first task',
+      task: 'Think about creating tasks',
       status: false,
     },
   ];
@@ -140,7 +146,20 @@ function App() {
           />
           <Route
             path='/all-tasks'
-            element={<TaskInternal tasks={tasks} setTasks={setTasks} />}
+            element={
+              <TaskInternal
+                tasks={tasks}
+                setTasks={setTasks}
+                onInput={onInput}
+                setOnInput={setOnInput}
+                selectedTask={selectedTask}
+                setSelectedTask={setSelectedTask}
+                taskTitle={taskTitle}
+                setTaskTitle={setTaskTitle}
+                taskDescription={taskDescription}
+                setTaskDescription={setTaskDescription}
+              />
+            }
           />
         </Routes>
       </AppContainer>

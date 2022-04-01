@@ -2,33 +2,30 @@ import { Link } from 'react-router-dom';
 
 export default function Tasks({ tasks, setTasks }) {
   console.log({ tasks });
+
+  let latest = [];
+
+  if (tasks) {
+    latest = tasks.slice(0, 3);
+  }
+
   return (
     <>
-      {tasks.map((task) => (
-        <div key={task.id}>
-          
-          
-          <div className='mt-1 relative flex items-center'>
-           
-           
-            <div className=' h-10 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md' /> 
-            
-            
-            <div className='absolute inset-y-0 right-0 flex py-1.5 pr-1.5'>
-              
-              
+      {latest.map((task) => {
+        console.log(task);
+        return (
+          <div key={task.id}>
+            <div className='mt-1 relative flex  items-center justify-between'>
+              <h3 className='p-1  '>{task.title}</h3>
+
               <div className='inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400'>
-                {task.status && 'Done'}
-                {!task.status && 'Open'}
+                {task.status && <p className='text-green-500'>Done</p>}
+                {!task.status && <p className='text-yellow-500'> Open</p>}
               </div>
-
-
-
             </div>
           </div>
-        </div>
-      ))}
-
+        );
+      })}
       <Link
         className='border border-gray-200 rounded-md shadow p-2 mt-2'
         type='button'
