@@ -6,7 +6,16 @@ import Clothes from '../Modules/Clothes';
 import Photos from '../Modules/Photos';
 import LogoutButton from '../components/Login/LogoutButton';
 
-function Dashboard({ user, newsData, newsError, logout, file, fileArray }) {
+function Dashboard({
+  user,
+  newsData,
+  newsError,
+  logout,
+  file,
+  fileArray,
+  tasks,
+  setTasks,
+}) {
   const modules = [
     {
       name: 'Weather',
@@ -36,7 +45,7 @@ function Dashboard({ user, newsData, newsError, logout, file, fileArray }) {
       name: 'Tasks',
       imageUrl:
         'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-      module: <Tasks />,
+      module: <Tasks tasks={tasks} setTasks={setTasks} />,
     },
     {
       name: 'Clothes',

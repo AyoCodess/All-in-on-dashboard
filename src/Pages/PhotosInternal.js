@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function PhotosInternal({ fileArray, file, setFile, newFile }) {
+function PhotosInternal({
+  fileArray,
+  file,
+  setFile,
+  setSelectedPhoto,
+  deletePhoto,
+}) {
   return (
     <>
       <div className='bg-white'>
@@ -26,31 +32,37 @@ function PhotosInternal({ fileArray, file, setFile, newFile }) {
                   Saving your best moments
                 </p>
               </div>
-              {newFile && (
-                <>
-                  <ul className='space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8'>
-                    {fileArray.map((file) => (
-                      <li key={file.name}>
-                        <div className='space-y-4'>
-                          <div className='aspect-w-3 aspect-h-2'>
-                            <img
-                              className='object-cover shadow-lg rounded-lg'
-                              src={file.source}
-                              alt={file.name}
-                            />
-                          </div>
 
-                          <div className='space-y-2'>
-                            <div className='text-lg leading-6 font-medium space-y-1'>
-                              <h3>{file.name}</h3>
-                            </div>
-                          </div>
+              <ul className='space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8'>
+                {fileArray.map((file) => (
+                  <li key={file.id}>
+                    <div className='space-y-4'>
+                      <div className='aspect-w-3 aspect-h-2'>
+                        <img
+                          className='object-cover shadow-lg rounded-lg'
+                          src={file.source}
+                          alt={file.name}
+                        />
+                      </div>
+
+                      <div className='space-y-2'>
+                        <div className='text-lg leading-6 font-medium space-y-1'>
+                          <h3>{file.name}</h3>
+                          <button
+                            className='border border-gray-200 p-2 rounded-md shadow'
+                            type='button'
+                            onClick={() => {
+                              deletePhoto(file);
+                            }}>
+                            Delete
+                          </button>
                         </div>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              )}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
               <button
                 className='border border-gray-200 p-2 shadow rounded-md'
                 onClick={() => {

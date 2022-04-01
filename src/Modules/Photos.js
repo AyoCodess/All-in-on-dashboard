@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Photos({ fileArray }) {
-  console.log({ fileArray });
-
   const latest = fileArray.slice(0, 6);
 
   return (

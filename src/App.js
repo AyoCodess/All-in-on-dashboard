@@ -10,6 +10,7 @@ import NewsInternal from './Pages/NewsInternal';
 import axios from 'axios';
 import { Loader } from './components/loader';
 import PhotosInternal from './Pages/PhotosInternal';
+import TaskInternal from './Pages/TaskInternal';
 
 function App() {
   const [newsData, setNewsData] = useState();
@@ -40,26 +41,51 @@ function App() {
 
   const [fileArray, setFileArray] = useState([]);
   const [file, setFile] = useFileUpload();
-  const [newFile, setNewFile] = useState();
 
+  // - adding ID number to each photo
   const addID = () => {
-    setNewFile((prev) => ({ id: Date.now().valueOf(), ...prev }));
-    handleFileArray();
-  };
-
-  const handleFileArray = () => {
-    console.log({ newFile });
-    setFileArray((prev) => {
-      return [newFile, ...prev];
-    });
+    if (file) {
+      setFileArray((prev) => {
+        return [...prev, { id: Date.now().valueOf(), ...file }];
+      });
+    } else {
+      console.error('file does not exist');
+    }
   };
 
   useEffect(() => {
     if (file) {
-      setNewFile(file);
       addID();
     }
-  }, [newFile]);
+  }, [file]);
+
+  const deletePhoto = (file) => {
+    const newFileArray = fileArray.filter((photo) => photo.id !== file.id);
+    setFileArray(newFileArray);
+  };
+
+  // - TASKS
+  const InitialTask = [
+    {
+      id: 1,
+      Name: 'Create your first task',
+      Task: 'Think about creating tasks',
+      status: true,
+    },
+    {
+      id: 2,
+      Name: 'Create your first task',
+      Task: 'Think about creating tasks',
+      status: false,
+    },
+    {
+      id: 3,
+      Name: 'Create your first task',
+      Task: 'Think about creating tasks',
+      status: false,
+    },
+  ];
+  const [tasks, setTasks] = useState(InitialTask);
 
   // - APP
   const { loginWithPopup, logout, user, isAuthenticated, isLoading, error } =
@@ -92,7 +118,8 @@ function App() {
                 logout={logout}
                 file={file}
                 fileArray={fileArray}
-                newFile={newFile}
+                tasks={tasks}
+                setTasks={setTasks}
               />
             }
           />
@@ -107,9 +134,13 @@ function App() {
                 file={file}
                 fileArray={fileArray}
                 setFile={setFile}
-                newFile={newFile}
+                deletePhoto={deletePhoto}
               />
             }
+          />
+          <Route
+            path='/all-tasks'
+            element={<TaskInternal tasks={tasks} setTasks={setTasks} />}
           />
         </Routes>
       </AppContainer>

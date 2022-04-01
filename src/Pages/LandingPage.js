@@ -13,6 +13,8 @@ function LandingPage({
   newsError,
   file,
   fileArray,
+  tasks,
+  setTasks,
 }) {
   const { isAuthenticated } = useAuth0();
   return (
@@ -50,6 +52,8 @@ function LandingPage({
             logout={logout}
             file={file}
             fileArray={fileArray}
+            tasks={tasks}
+            setTasks={setTasks}
           />
         )}
       </div>
