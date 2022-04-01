@@ -23,26 +23,15 @@ function Photos({ fileArray }) {
           ))}
         </ul>
       )}
-      {fileArray.length === 0 && (
-        <div>
-          <Link
-            className='border border-gray-200 p-2 shadow rounded-md mt-2'
-            type='button'
-            to='/photos'>
-            Upload your first Photo!
-          </Link>
-        </div>
-      )}
-      {fileArray.length > 0 && (
-        <div>
-          <Link
-            className='border border-gray-200 p-2 shadow rounded-md mt-2'
-            type='button'
-            to='/photos'>
-            View Photos
-          </Link>
-        </div>
-      )}
+      <div>
+        <Link
+          className='border border-gray-200 p-2 shadow rounded-md mt-2'
+          type='button'
+          to='/photos'>
+          {fileArray.length > 0 && ' View Photos'}
+          {fileArray.length === 0 && ' Upload your first Photo!'}
+        </Link>
+      </div>
     </>
   );
 }

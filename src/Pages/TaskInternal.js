@@ -17,14 +17,61 @@ function TaskInternal({
 
   return (
     <>
-      <div className='max-w-xl mx-auto'>
-        <Link
-          type='button'
-          to='/'
-          className='border border-gray-200 rounded-sm shadow p-1'>
-          Back
-        </Link>
-        <ul className='divide-y divide-gray-200'>
+      <div className='max-w-xl mx-auto mt-4'>
+        <div className='flex items-center justify-between'>
+          <div className='w-full'>
+            <div className='flex justify-between items-center mt-4 mb-2'>
+              <div className='text-2xl '>Add Task</div>
+              <Link
+                type='button'
+                to='/'
+                className='border h-10 border-gray-200 rounded-sm shadow p-1'>
+                Back
+              </Link>
+            </div>
+            <div className='flex flex-col mt-2 sm:flex-row items-center gap-1 w-2/3 mb-4 border border-gray-200 p-2 rounded-md shadow'>
+              <div className='flex flex-wrap gap-2 '>
+                <input
+                  value={taskTitle}
+                  onChange={(e) => setTaskTitle(e.target.value)}
+                  placeholder='Task Title'
+                  autoComplete='off'
+                  type='text'
+                  className=' h-10 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md'
+                />
+                <input
+                  value={taskDescription}
+                  onChange={(e) => setTaskDescription(e.target.value)}
+                  placeholder='Task description'
+                  autoComplete='off'
+                  type='text'
+                  className=' h-10 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md'
+                />
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                setTasks((prev) => {
+                  return [
+                    {
+                      id: Date.now().valueOf(),
+                      title: taskTitle,
+                      task: taskDescription,
+                      status: false,
+                    },
+                    ...prev,
+                  ];
+                });
+
+                setTaskTitle('');
+                setTaskDescription('');
+              }}
+              className='border h-10 border-gray-200 rounded-sm shadow p-1'>
+              Create Task
+            </button>
+          </div>
+        </div>
+        <ul className='divide-y divide-gray-200 mt-6'>
           {tasks.map((task, i) => (
             <li key={task.id} className='py-4'>
               <div className='flex space-x-3'>
@@ -93,6 +140,18 @@ function TaskInternal({
                             <button
                               onClick={() => {
                                 setTasks((prev) =>
+                                  prev.filter((t) => t.id !== task.id)
+                                );
+
+                                setSelectedTask('');
+                              }}
+                              type='button'
+                              className=' mt-5  h-8 items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400'>
+                              Delete
+                            </button>
+                            <button
+                              onClick={() => {
+                                setTasks((prev) =>
                                   prev.map((t) =>
                                     t.id === task.id
                                       ? {
@@ -109,6 +168,8 @@ function TaskInternal({
                                 );
 
                                 setSelectedTask('');
+                                setTaskTitle('');
+                                setTaskDescription('');
                               }}
                               type='button'
                               className=' mt-5  h-8 items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400'>

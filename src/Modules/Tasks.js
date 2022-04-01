@@ -9,6 +9,7 @@ export default function Tasks({ tasks, setTasks }) {
     latest = tasks.slice(0, 3);
   }
 
+  console.log(tasks.length);
   return (
     <>
       {latest.map((task) => {
@@ -30,7 +31,8 @@ export default function Tasks({ tasks, setTasks }) {
         className='border border-gray-200 rounded-md shadow p-2 mt-2'
         type='button'
         to='/all-tasks'>
-        View All
+        {tasks && 'View All'}
+        {tasks.length === 0 && 'Add you first task!'}
       </Link>
     </>
   );
