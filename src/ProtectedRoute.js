@@ -1,13 +1,12 @@
-import { withAuthenticationRequired } from '@auth0/auth0-react';
 import React from 'react';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 import Loader from './Loader';
 
 const ProtectedRoute = ({ component, ...args }) => {
-  const Component = withAuthenticationRequired(component, {
+  const Cp = withAuthenticationRequired(component, {
     onRedirecting: () => <Loader />,
   });
-
-  return <Component {...args} />;
+  return <Cp {...args} />;
 };
 
 export default ProtectedRoute;

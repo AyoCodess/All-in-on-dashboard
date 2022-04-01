@@ -8,8 +8,13 @@ export const Auth0ProviderWithHistory = ({ children }) => {
   const domain = 'dev-hrphul7f.us.auth0.com';
   const clientId = 'lQMc065mlbkwHRhLyZDGNzaf43J5yRWM';
 
+  //   const onRedirectCallback = () => {
+  //     navigate('/dashboard', { replace: true });
+  //   };
+
   const onRedirectCallback = (appState) => {
-    navigate(appState?.returnTo || window.location.pathname);
+    navigate('/', { replace: true });
+    //  navigate(appState?.returnTo || window.location.pathname);
   };
 
   if (!(domain && clientId)) {

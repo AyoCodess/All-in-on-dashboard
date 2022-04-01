@@ -8,9 +8,7 @@ function NewsInternal({ newsData, newsError }) {
       {newsError && (
         <div className='flex flex-col  items-center gap-5 justify-center h-[100vh]'>
           <p>Something went wrong, please try again later</p>
-          <Link
-            className='border border-gray-200 p-2 shadow rounded-md'
-            to='/dashboard'>
+          <Link className='border border-gray-200 p-2 shadow rounded-md' to='/'>
             Back
           </Link>
         </div>
@@ -33,7 +31,7 @@ function NewsInternal({ newsData, newsError }) {
                     </h2>
                     <Link
                       className='border border-gray-200 p-2 shadow rounded-md'
-                      to='/dashboard'>
+                      to='/'>
                       Back
                     </Link>
                   </div>
