@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-export const Loader = () => {
-  const loadingImg = "https://cdn.auth0.com/blog/hello-auth0/loader.svg";
-
+const Loader = () => {
   return (
-    <div className="loader">
-      <img src={loadingImg} alt="Loading..." />
+    <div className=' flex h-[100vh] w-full justify-center items-center loader '>
+      <div>Loading...</div>
     </div>
   );
 };
+
+export default Loader;

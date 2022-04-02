@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Modal from '../components/Modal';
 
 function TaskInternal({
   tasks,
@@ -15,8 +16,16 @@ function TaskInternal({
 }) {
   console.log({ selectedTask });
 
+  const [isInvalid, setIsInvalid] = useState(false);
+
   return (
     <>
+      <Modal
+        title={'error'}
+        content={'You have not entered any information in one or both fields.'}
+        open={isInvalid}
+        setOpen={setIsInvalid}
+      />
       <div className='max-w-xl mx-auto mt-4'>
         <div className='flex items-center justify-between'>
           <div className='w-full'>
@@ -29,7 +38,7 @@ function TaskInternal({
                 Back
               </Link>
             </div>
-            <div className='flex flex-col mt-2 sm:flex-row items-center gap-1 w-2/3 mb-4 border border-gray-200 p-2 rounded-md shadow'>
+            <div className='flex flex-col mt-10 sm:flex-row items-center gap-1 w-full mb-4 border border-gray-200 p-2 rounded-md shadow'>
               <div className='flex flex-wrap gap-2 '>
                 <input
                   value={taskTitle}
@@ -51,17 +60,22 @@ function TaskInternal({
             </div>
             <button
               onClick={() => {
-                setTasks((prev) => {
-                  return [
-                    {
-                      id: Date.now().valueOf(),
-                      title: taskTitle,
-                      task: taskDescription,
-                      status: false,
-                    },
-                    ...prev,
-                  ];
-                });
+                // - basic validation
+                if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
+                  setTasks((prev) => {
+                    return [
+                      {
+                        id: Date.now().valueOf(),
+                        title: taskTitle,
+                        task: taskDescription,
+                        status: false,
+                      },
+                      ...prev,
+                    ];
+                  });
+                } else {
+                  setIsInvalid(true);
+                }
 
                 setTaskTitle('');
                 setTaskDescription('');
@@ -94,7 +108,7 @@ function TaskInternal({
                       <p className='text-sm text-gray-500'>{task.task}</p>
                     </div>
                     {task.status && <p className='text-green-500'>Done</p>}
-                    {!task.status && <p className='text-yellow-500'> Open</p>}
+                    {!task.status && <p className='text-red-500'> New</p>}
                   </div>
                   {task.id === selectedTask && (
                     <>

@@ -55,18 +55,19 @@ function Clothes() {
 
   return (
     <>
-      <div className='flex flex-wrap gap-1 p-1 mx-auto items-center mb-1'>
+      <div className='flex flex-col gap-1 p-1 items-center mx-auto mb-1 text-xl'>
         <p>in 1000 days you wore a...</p>
 
         {data.map((item, i) => (
-          <>
+          <div key={item.title} className='flex gap-1'>
             <div
-              key={item.title}
               style={{
                 color: COLORS[item.title],
-              }}>{`${item.title}`}</div>
-            <div>{`${item.value} `}</div> times |
-          </>
+              }}>
+              {`${item.title}`}&nbsp;
+            </div>
+            <div>{`${item.value}`}</div>&nbsp;times
+          </div>
         ))}
       </div>
       {!isLoading && (

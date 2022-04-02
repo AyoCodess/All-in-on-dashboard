@@ -1,33 +1,54 @@
 import { Link } from 'react-router-dom';
-import Papa from 'papaparse';
-import file from '../csv/file.csv';
 
-const results = Papa.parse(file);
-
-console.log(results.data);
-
-export default function Sport({}) {
+export default function Sport({ sportEvent }) {
+  console.log({ sportEvent });
   return (
     <>
-      {/* {latest.map((task) => {
-        return (
-          <div key={task.id}>
-            <div className='mt-1 relative flex  items-center justify-between'>
-              <h3 className='p-1  '>{task.title}</h3>
+      {!sportEvent && (
+        <>
+          <p>Check the italian football league's current season results. </p>
+        </>
+      )}
 
-              <div className='inline-flex items-center border border-gray-200 rounded px-2 text-sm font-sans font-medium text-gray-400'>
-                {task.status && <p className='text-green-500'>Done</p>}
-                {!task.status && <p className='text-yellow-500'> Open</p>}
-              </div>
-            </div>
-          </div>
-        );
-      })} */}
+      {sportEvent && (
+        <>
+          {sportEvent.result === 'Win' && (
+            <>
+              <p className='text-xl'>
+                <span className='font-bold text-gray-500 text-xl '>
+                  Featured Event: &nbsp;
+                </span>
+                {` ${sportEvent.homeTeam} won they beat ${sportEvent.awayTeam} and scored ${sportEvent.goalsFor}.`}
+              </p>
+            </>
+          )}
+          {sportEvent.result === 'Lost' && (
+            <>
+              <p className='text-xl'>
+                <span className='font-bold text-gray-500   text-xl'>
+                  Featured Event: &nbsp;
+                </span>
+                {`${sportEvent.homeTeam} didn't do to well, they lost against ${sportEvent.awayTeam} and conceded ${sportEvent.goalsAgainst}.`}
+              </p>
+            </>
+          )}
+          {sportEvent.result === 'Draw' && (
+            <>
+              <p className='text-xl'>
+                <span className='font-bold text-gray-500 text-xl'>
+                  Featured Event:&nbsp;
+                </span>
+                {`${sportEvent.homeTeam} had a good game and drew ${sportEvent.goalsFor} - ${sportEvent.goalsAgainst} with ${sportEvent.awayTeam}.`}
+              </p>
+            </>
+          )}
+        </>
+      )}
       <Link
-        className='border border-gray-200 rounded-md shadow p-2 mt-2'
+        className='border border-gray-200 rounded-md font-bold text-lg  shadow p-2 mt-2'
         type='button'
         to='/sports'>
-        View More
+        View Results
       </Link>
     </>
   );

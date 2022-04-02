@@ -18,7 +18,7 @@ function News({ newsData, newsError }) {
           <Link
             type='button'
             to='/news'
-            className='p-2 border border-gray-200 shadow rounded-md mt-2'>
+            className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
             Read More{' '}
           </Link>
         </>

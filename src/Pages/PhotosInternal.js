@@ -13,9 +13,7 @@ function PhotosInternal({
       <div className='bg-white'>
         <div className='mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 '>
           <div>
-            <div className='mt-5 flex justify-between items-center'>
-              {' '}
-              <div>Internal</div>
+            <div className='mt-5 flex justify-end items-center'>
               <Link
                 className='border border-gray-200 p-2 shadow rounded-md'
                 to='/'>

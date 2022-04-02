@@ -15,42 +15,31 @@ function Dashboard({
   fileArray,
   tasks,
   setTasks,
+  sportEvent,
 }) {
   const modules = [
     {
-      name: 'Weather',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+      name: 'Todays Weather',
       module: <Weather />,
     },
     {
-      name: 'News',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+      name: 'Latest News',
       module: <News newsData={newsData} newsError={newsError} />,
     },
     {
-      name: 'Sport',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-      module: <Sport />,
+      name: 'Football Headlines',
+      module: <Sport sportEvent={sportEvent} />,
     },
     {
-      name: 'Phots',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+      name: 'Your Photos',
       module: <Photos file={file} fileArray={fileArray} />,
     },
     {
-      name: 'Tasks',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+      name: 'Latest Tasks',
       module: <Tasks tasks={tasks} setTasks={setTasks} />,
     },
     {
-      name: 'Clothes',
-      imageUrl:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
+      name: 'What you wore this year',
       module: <Clothes />,
     },
   ];
@@ -60,12 +49,7 @@ function Dashboard({
         <div className='mx-auto py-6 px-4 max-w-max sm:px-6 '>
           <div className='space-y-12'>
             <div className='space-y-5 sm:space-y-4  xl:max-w-none'>
-              <div className='flex items-center gap-5 justify-between mt-6'>
-                {/* // - put image logo here */}
-                <div className=' text-lg sm:text-2xl ml-4 '>Logo</div>
-                {/* {user && (
-            <div className=' text-lg sm:text-2xl mr-4 '>{`Welcome...`}</div>
-          )} */}
+              <div className='flex items-center gap-5 justify-end mt-6'>
                 {user && <LogoutButton logout={logout} />}
               </div>
 
@@ -73,30 +57,21 @@ function Dashboard({
                 Have a wonderful day, &nbsp;{user.name}
               </h2>
               <p className='text-xl text-gray-500'>
-                Odio nisi, lectus dis nulla. Ultrices maecenas vitae rutrum
-                dolor ultricies donec risus sodales. Tempus quis et.
+                Almost everything you need in one place...
               </p>
             </div>
             <ul className='space-y-12 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 '>
               {modules.map((module) => (
                 <li key={module.name}>
                   <div className='space-y-2'>
-                    <div className='text-xl sm:text-2xl leading-6 font-medium space-y-1 mb-4 p-2 border border-gray-200 rounded-md shadow'>
+                    <div className='text-xl sm:text-2xl bg-black text-white leading-6 font-medium space-y-1 mb-4 p-2 border border-gray-200 rounded-md shadow'>
                       <h3>{module.name}</h3>
                     </div>
                   </div>
                   <div className='space-y-4'>
                     <div className='p-2 border border-gray-200 rounded-md shadow'>
-                      {' '}
                       {module.module}
                     </div>
-                    {/* <div className='aspect-w-3 aspect-h-2'>
-                    <img
-                      className='object-cover shadow-lg rounded-lg'
-                      src={person.imageUrl}
-                      alt=''
-                    />
-                  </div> */}
                   </div>
                 </li>
               ))}

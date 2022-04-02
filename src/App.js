@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Papa from 'papaparse';
+import raw from 'raw.macro';
 import './App.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useFileUpload } from 'use-file-upload';
@@ -8,12 +10,17 @@ import AppContainer from './components/AppContainer';
 import { Routes, Route } from 'react-router-dom';
 import NewsInternal from './Pages/NewsInternal';
 import axios from 'axios';
-import { Loader } from './components/loader';
+import Loader from './components/Loader';
 import PhotosInternal from './Pages/PhotosInternal';
 import TaskInternal from './Pages/TaskInternal';
 import SportInternal from './Pages/SportInternal';
 
 function App() {
+  const API_BASE = 'http://localhost:3001';
+
+  // - modal
+  const [open, setOpen] = useState(false);
+
   const [newsData, setNewsData] = useState();
   const [newsError, setNewsError] = useState();
 
@@ -72,21 +79,24 @@ function App() {
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
 
+  //   useEffect(() => {
+  //     getTasks();
+  //   }, []);
+
+  //   const getTasks = async () => {
+  //     try {
+  //       const response = await fetch(API_BASE + '/all-tasks');
+  //       const data = await response.json();
+
+  //       setTasks(data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+
   const InitialTask = [
     {
       id: 1,
-      title: 'Create your first task',
-      task: 'Think about creating tasks',
-      status: true,
-    },
-    {
-      id: 2,
-      title: 'Create your first task',
-      task: 'Think about creating tasks',
-      status: false,
-    },
-    {
-      id: 3,
       title: 'Create your first task',
       task: 'Think about creating tasks',
       status: false,
@@ -94,8 +104,49 @@ function App() {
   ];
   const [tasks, setTasks] = useState(InitialTask);
 
+  // - SPORT
+
+  const [sportData, setSportData] = useState();
+  const [selectedTeam, setSelectedTeam] = useState();
+  const [sportEvent, setSportEvent] = useState();
+
+  // . create-react-app does allow for importing the raw contents of a file
+  const rawFile = raw('../src/csv/file.csv');
+
+  // - csv to array
+  const rawResults = Papa.parse(rawFile, {
+    header: true,
+    skipEmptyLines: true,
+  });
+
+  const results = rawResults.data;
+
+  const newResults = results.map((item) => {
+    return {
+      date: item.Date,
+      homeTeam: item.HomeTeam?.toLowerCase(),
+      awayTeam: item.AwayTeam?.toLowerCase(),
+      result:
+        item.FTHG > item.FTAG
+          ? 'Win'
+          : item.FTHG === item.FTAG
+          ? 'Draw'
+          : 'Lost',
+      goalsFor: item.FTHG,
+      goalsAgainst: item.FTAG,
+    };
+  });
+
+  useEffect(() => {
+    if (newResults) {
+      setSportData(newResults);
+    }
+  }, []);
+
+  console.log({ newResults });
+
   // - APP
-  const { loginWithPopup, logout, user, isAuthenticated, isLoading, error } =
+  const { loginWithPopup, logout, user, isLoading, error, isAuthenticated } =
     useAuth0();
 
   if (isLoading) {
@@ -115,7 +166,7 @@ function App() {
       <AppContainer>
         <Routes>
           <Route
-            path='/'
+            path='*'
             element={
               <LandingPage
                 loginType={loginWithPopup}
@@ -127,42 +178,64 @@ function App() {
                 fileArray={fileArray}
                 tasks={tasks}
                 setTasks={setTasks}
+                sportEvent={sportEvent}
               />
             }
           />
-          <Route
-            path='/news'
-            element={<NewsInternal newsData={newsData} newsError={newsError} />}
-          />
-          <Route
-            path='/photos'
-            element={
-              <PhotosInternal
-                file={file}
-                fileArray={fileArray}
-                setFile={setFile}
-                deletePhoto={deletePhoto}
+
+          {isAuthenticated && (
+            <>
+              <Route
+                path='/news'
+                element={
+                  <NewsInternal newsData={newsData} newsError={newsError} />
+                }
               />
-            }
-          />
-          <Route
-            path='/all-tasks'
-            element={
-              <TaskInternal
-                tasks={tasks}
-                setTasks={setTasks}
-                onInput={onInput}
-                setOnInput={setOnInput}
-                selectedTask={selectedTask}
-                setSelectedTask={setSelectedTask}
-                taskTitle={taskTitle}
-                setTaskTitle={setTaskTitle}
-                taskDescription={taskDescription}
-                setTaskDescription={setTaskDescription}
+              <Route
+                path='/photos'
+                element={
+                  <PhotosInternal
+                    file={file}
+                    fileArray={fileArray}
+                    setFile={setFile}
+                    deletePhoto={deletePhoto}
+                  />
+                }
               />
-            }
-          />
-          <Route path='/sports' element={<SportInternal />} />
+              <Route
+                path='/all-tasks'
+                element={
+                  <TaskInternal
+                    tasks={tasks}
+                    setTasks={setTasks}
+                    onInput={onInput}
+                    setOnInput={setOnInput}
+                    selectedTask={selectedTask}
+                    setSelectedTask={setSelectedTask}
+                    taskTitle={taskTitle}
+                    setTaskTitle={setTaskTitle}
+                    taskDescription={taskDescription}
+                    setTaskDescription={setTaskDescription}
+                  />
+                }
+              />
+              <Route
+                path='/sports'
+                element={
+                  <SportInternal
+                    sportData={sportData}
+                    setSportData={setSportData}
+                    selectedTeam={selectedTeam}
+                    setSelectedTeam={setSelectedTeam}
+                    setSportEvent={setSportEvent}
+                    sportEvent={sportEvent}
+                    setOpen={setOpen}
+                    open={open}
+                  />
+                }
+              />
+            </>
+          )}
         </Routes>
       </AppContainer>
     </>

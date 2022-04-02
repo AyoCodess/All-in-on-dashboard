@@ -1,0 +1,16 @@
+.loader {
+  color: lightgray;
+
+  margin: auto;
+
+  animation: growth 10s infinite linear;
+}
+
+@keyframes growth {
+  0% {
+    font-size: 1rem;
+  }
+  100% {
+    font-size: 2rem;
+  }
+}

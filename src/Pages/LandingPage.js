@@ -1,7 +1,5 @@
 import React from 'react';
 import LoginButton from '../components/Login/LoginButton';
-import LogoutButton from '../components/Login/LogoutButton';
-import UserProfile from '../components/Login/UserProfile';
 import Dashboard from './Dashboard';
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -15,6 +13,7 @@ function LandingPage({
   fileArray,
   tasks,
   setTasks,
+  sportEvent,
 }) {
   const { isAuthenticated } = useAuth0();
 
@@ -27,8 +26,8 @@ function LandingPage({
               <div className=' text-5xl sm:text-6xl'>
                 Welcome to your dashboard
               </div>
-              <p className='text-lg mt-1'>Are you ready to stay productive?</p>
-              <div className='mt-3'>
+              <p className='text-3xl mt-2'>Are you ready to stay productive?</p>
+              <div className='mt-5 '>
                 <LoginButton loginType={loginType} />
               </div>
             </div>
@@ -42,9 +41,7 @@ function LandingPage({
         </>
       )}
 
-      <div className='flex items-center gap-5 justify-between '>
-        {/* // - put image logo here */}
-
+      <div className='flex  gap-5 justify-between '>
         {isAuthenticated && (
           <Dashboard
             user={user}
@@ -55,6 +52,7 @@ function LandingPage({
             fileArray={fileArray}
             tasks={tasks}
             setTasks={setTasks}
+            sportEvent={sportEvent}
           />
         )}
       </div>
