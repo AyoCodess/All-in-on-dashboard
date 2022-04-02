@@ -11,6 +11,7 @@ import axios from 'axios';
 import { Loader } from './components/loader';
 import PhotosInternal from './Pages/PhotosInternal';
 import TaskInternal from './Pages/TaskInternal';
+import SportInternal from './Pages/SportInternal';
 
 function App() {
   const [newsData, setNewsData] = useState();
@@ -161,6 +162,7 @@ function App() {
               />
             }
           />
+          <Route path='/sports' element={<SportInternal />} />
         </Routes>
       </AppContainer>
     </>

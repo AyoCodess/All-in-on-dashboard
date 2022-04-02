@@ -17,6 +17,7 @@ function LandingPage({
   setTasks,
 }) {
   const { isAuthenticated } = useAuth0();
+
   return (
     <>
       {!isAuthenticated && (

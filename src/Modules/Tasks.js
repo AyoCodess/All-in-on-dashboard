@@ -1,19 +1,15 @@
 import { Link } from 'react-router-dom';
 
 export default function Tasks({ tasks, setTasks }) {
-  console.log({ tasks });
-
   let latest = [];
 
   if (tasks) {
     latest = tasks.slice(0, 3);
   }
 
-  console.log(tasks.length);
   return (
     <>
       {latest.map((task) => {
-        console.log(task);
         return (
           <div key={task.id}>
             <div className='mt-1 relative flex  items-center justify-between'>
