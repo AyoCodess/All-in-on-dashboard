@@ -5,16 +5,16 @@ import './App.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useFileUpload } from 'use-file-upload';
 
-import LandingPage from './Pages/LandingPage';
+import Dashboard from './Pages/Dashboard';
 import AppContainer from './components/AppContainer';
 import { Routes, Route } from 'react-router-dom';
-import NewsInternal from './Pages/NewsInternal';
+import NewsInternal from './Pages/Modules/ModuleSubPages/NewsInternal';
 import axios from 'axios';
 import Loader from './components/Loader';
-import PhotosInternal from './Pages/PhotosInternal';
-import TaskInternal from './Pages/TaskInternal';
-import SportInternal from './Pages/SportInternal';
-import NewsInternal2 from './Pages/NewsInternal2';
+import PhotosInternal from './Pages/Modules/ModuleSubPages/PhotosInternal';
+import TaskInternal from './Pages/Modules/ModuleSubPages/TaskInternal';
+import SportInternal from './Pages/Modules/ModuleSubPages/SportInternal';
+import NewsInternalRSS from './Pages/Modules/ModuleSubPages/NewsInternalRSS';
 
 function App() {
   const API_BASE = 'http://localhost:3001';
@@ -44,24 +44,23 @@ function App() {
 
       const items = data.querySelectorAll('item');
 
-      let html = ``;
+      let html = ` `;
 
-      console.log(items);
-
-      items.forEach((el) => {
-        html += `
+      let arr = Array.from(items).map(
+        (item) =>
+          (html += `
         <article class="flex flex-col gap-1 ">
           <h2>
             <a  class="hover:text-gray-500" href="${
-              el.querySelector('link').innerHTML
+              item.querySelector('link').innerHTML
             }" target="_blank" rel="noopener">
-              ${el.querySelector('title').innerHTML}
+              ${item.querySelector('title').innerHTML}
             </a>
           </h2>
             <hr class='w-full border border-gray-200 mx-auto my-2'/>
         </article>
-      `;
-      });
+      `)
+      );
 
       setHTML(html);
     } catch (err) {
@@ -123,11 +122,33 @@ function App() {
 
   // - TASKS
 
+  const InitialTask = [
+    {
+      id: 1,
+      title: 'Create your first task',
+      task: 'Think about creating tasks',
+      status: false,
+    },
+  ];
+
+  const [tasks, setTasks] = useState(InitialTask);
+
+  //. getting saved tasks
+  const savedTasks = localStorage.getItem('tasks');
+  const parsedTasks = JSON.parse(savedTasks);
+
+  useEffect(() => {
+    if (parsedTasks) {
+      setTasks(parsedTasks);
+    }
+  }, []);
+
   const [onInput, setOnInput] = useState(false);
   const [selectedTask, setSelectedTask] = useState(false);
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
 
+  // - backend for tasks
   //   useEffect(() => {
   //     getTasks();
   //   }, []);
@@ -143,16 +164,6 @@ function App() {
   //     }
   //   };
 
-  const InitialTask = [
-    {
-      id: 1,
-      title: 'Create your first task',
-      task: 'Think about creating tasks',
-      status: false,
-    },
-  ];
-  const [tasks, setTasks] = useState(InitialTask);
-
   // - SPORT
 
   const [sportData, setSportData] = useState();
@@ -160,7 +171,7 @@ function App() {
   const [sportEvent, setSportEvent] = useState();
 
   // . create-react-app does allow for importing the raw contents of a file
-  const rawFile = raw('../src/csv/file.csv');
+  const rawFile = raw('../src/Data/csv/file.csv');
 
   // - csv to array
   const rawResults = Papa.parse(rawFile, {
@@ -215,7 +226,7 @@ function App() {
           <Route
             path='*'
             element={
-              <LandingPage
+              <Dashboard
                 loginType={loginWithPopup}
                 user={user}
                 newsData={newsData}
@@ -238,7 +249,10 @@ function App() {
                   <NewsInternal newsData={newsData} newsError={newsError} />
                 }
               />
-              <Route path='/news-rss' element={<NewsInternal2 html={html} />} />
+              <Route
+                path='/news-rss'
+                element={<NewsInternalRSS html={html} />}
+              />
               <Route
                 path='/photos'
                 element={

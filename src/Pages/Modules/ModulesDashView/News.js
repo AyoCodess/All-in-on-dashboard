@@ -39,10 +39,21 @@ function News({ newsData, newsError }) {
       )}
 
       {newsError && (
-        <p className='text-center'>
-          {' '}
-          Something went wrong, please try again later
-        </p>
+        <>
+          <p className='text-center'>
+            {' '}
+            Something went wrong, please try again later. You can view you RSS
+            feed only.
+          </p>
+          <div className='flex gap-2'>
+            <Link
+              type='button'
+              to='/news-rss'
+              className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
+              News RSS
+            </Link>
+          </div>
+        </>
       )}
     </>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { CameraIcon } from '@heroicons/react/solid';
 import { Link } from 'react-router-dom';
+import StandardBtn from '../../../components/StandardBtn';
 
 function NewsInternal({ newsData, newsError }) {
   return (
@@ -8,9 +9,7 @@ function NewsInternal({ newsData, newsError }) {
       {newsError && (
         <div className='flex flex-col  items-center gap-5 justify-center h-[100vh]'>
           <p>Something went wrong, please try again later</p>
-          <Link className='border border-gray-200 p-2 shadow rounded-md' to='/'>
-            Back
-          </Link>
+          <StandardBtn to={'/'} text={'Back'} />
         </div>
       )}
       {!newsData && !newsError && (
@@ -29,11 +28,7 @@ function NewsInternal({ newsData, newsError }) {
                     <h2 className='text-base text-indigo-600 font-semibold tracking-wide uppercase'>
                       Breaking News
                     </h2>
-                    <Link
-                      className='border border-gray-200 p-2 shadow rounded-md'
-                      to='/'>
-                      Back
-                    </Link>
+                    <StandardBtn text={'Back'} to={'/'} />
                   </div>
                   <h3 className='mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
                     {newsData[0].title}

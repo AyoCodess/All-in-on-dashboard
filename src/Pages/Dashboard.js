@@ -1,83 +1,60 @@
-import Weather from '../Modules/Weather';
-import News from '../Modules/News';
-import Sport from '../Modules/Sport';
-import Tasks from '../Modules/Tasks';
-import Clothes from '../Modules/Clothes';
-import Photos from '../Modules/Photos';
-import LogoutButton from '../components/Login/LogoutButton';
+import React from 'react';
+import LoginButton from '../components/Login/LoginButton';
+import Modules from './Modules/Modules';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function Dashboard({
   user,
+  loginType,
+  logout,
   newsData,
   newsError,
-  logout,
   file,
   fileArray,
   tasks,
   setTasks,
   sportEvent,
 }) {
-  const modules = [
-    {
-      name: 'Todays Weather',
-      module: <Weather />,
-    },
-    {
-      name: 'Latest News',
-      module: <News newsData={newsData} newsError={newsError} />,
-    },
-    {
-      name: 'Football Headlines',
-      module: <Sport sportEvent={sportEvent} />,
-    },
-    {
-      name: 'Your Photos',
-      module: <Photos file={file} fileArray={fileArray} />,
-    },
-    {
-      name: 'Latest Tasks',
-      module: <Tasks tasks={tasks} setTasks={setTasks} />,
-    },
-    {
-      name: 'What you wore this year',
-      module: <Clothes />,
-    },
-  ];
+  const { isAuthenticated } = useAuth0();
+
   return (
     <>
-      <div className='bg-white'>
-        <div className='mx-auto py-6 px-4 max-w-max sm:px-6 '>
-          <div className='space-y-12'>
-            <div className='space-y-5 sm:space-y-4  xl:max-w-none'>
-              <div className='flex items-center gap-5 justify-end mt-6'>
-                {user && <LogoutButton logout={logout} />}
+      {!isAuthenticated && (
+        <>
+          <div className='flex flex-col sm:flex-row justify-center gap-5 md:gap-16 sm:items-center p-2 h-[100vh]'>
+            <div>
+              <div className=' text-5xl sm:text-6xl'>
+                Welcome to your dashboard
               </div>
-
-              <h2 className='text-3xl font-extrabold tracking-tight sm:text-4xl'>
-                Have a wonderful day, &nbsp;{user.name}
-              </h2>
-              <p className='text-xl text-gray-500'>
-                Almost everything you need in one place...
-              </p>
+              <p className='text-3xl mt-2'>Are you ready to stay productive?</p>
+              <div className='mt-5 '>
+                <LoginButton loginType={loginType} />
+              </div>
             </div>
-            <ul className='space-y-12 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 '>
-              {modules.map((module) => (
-                <li key={module.name}>
-                  <div className='space-y-2'>
-                    <div className='text-xl sm:text-2xl bg-black text-white leading-6 font-medium space-y-1 mb-4 p-2 border border-gray-200 rounded-md shadow'>
-                      <h3>{module.name}</h3>
-                    </div>
-                  </div>
-                  <div className='space-y-4'>
-                    <div className='p-2 border border-gray-200 rounded-md shadow'>
-                      {module.module}
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+
+            <img
+              className='object-cover h-60 w-96 rounded-md shadow-md'
+              src='https://i.imgur.com/kA0tEOy.jpg'
+              alt='landing page'
+            />
           </div>
-        </div>
+        </>
+      )}
+
+      <div className='flex  gap-5 justify-between '>
+        {isAuthenticated && (
+          <Modules
+            user={user}
+            newsData={newsData}
+            newsError={newsError}
+            logout={logout}
+            file={file}
+            fileArray={fileArray}
+            tasks={tasks}
+            setTasks={setTasks}
+            sportEvent={sportEvent}
+          />
+        )}
       </div>
     </>
   );

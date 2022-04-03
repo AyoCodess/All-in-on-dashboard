@@ -1,24 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import StandardBtn from '../../../components/StandardBtn';
+import StandardBtnOnClick from '../../../components/StandardBtnOnClick';
 
-function PhotosInternal({
-  fileArray,
-  file,
-  setFile,
-  setSelectedPhoto,
-  deletePhoto,
-}) {
+function PhotosInternal({ fileArray, setFile, deletePhoto }) {
   return (
     <>
       <div className='bg-white'>
         <div className='mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 '>
           <div>
             <div className='mt-5 flex justify-end items-center'>
-              <Link
-                className='border border-gray-200 p-2 shadow rounded-md'
-                to='/'>
-                Back
-              </Link>
+              <StandardBtn to={'/'} text={'Back'} />
             </div>
 
             <div className='space-y-12'>
@@ -29,13 +20,13 @@ function PhotosInternal({
                 <p className='text-xl text-gray-500'>
                   Saving your best moments
                 </p>
-                <button
-                  className='border border-gray-200 p-2 shadow rounded-md'
+
+                <StandardBtnOnClick
+                  text={'Click to Upload'}
                   onClick={() => {
                     setFile();
-                  }}>
-                  Click to Upload
-                </button>
+                  }}
+                />
               </div>
 
               <ul className='space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8'>
@@ -53,14 +44,12 @@ function PhotosInternal({
                       <div className='space-y-2'>
                         <div className='text-lg leading-6 font-medium space-y-1'>
                           <h3>{file.name}</h3>
-                          <button
-                            className='border border-gray-200 p-2 rounded-md shadow'
-                            type='button'
+                          <StandardBtnOnClick
+                            text={'Delete'}
                             onClick={() => {
                               deletePhoto(file);
-                            }}>
-                            Delete
-                          </button>
+                            }}
+                          />
                         </div>
                       </div>
                     </div>

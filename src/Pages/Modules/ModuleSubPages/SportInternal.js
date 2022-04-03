@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Modal from '../components/Modal';
+import Modal from '../../../components/Modal';
+import FeaturedSportEvent from '../ModalComponents/FeaturedSportEvent';
+import StandardBtn from '../../../components/StandardBtn';
 
 function SportInternal({
   sportData,
@@ -13,46 +15,13 @@ function SportInternal({
 }) {
   const [openTeams, setOpenTeams] = useState(false);
   const modalContent = (
-    <div>
-      {sportEvent && (
-        <>
-          {sportEvent.result === 'Win' && (
-            <>
-              <p className='text-xl'>
-                <span className='font-bold text-xl '>
-                  Featured Event:&nbsp;
-                </span>
-                {`${sportEvent.homeTeam} won they beat ${sportEvent.awayTeam} and scored ${sportEvent.goalsFor}.`}
-              </p>
-            </>
-          )}
-          {sportEvent.result === 'Lost' && (
-            <>
-              <p className='text-xl'>
-                <span className='font-bold text-xl'>Featured Event:&nbsp;</span>
-                {`${sportEvent.homeTeam} didn't do to well, they lost against ${sportEvent.awayTeam} and conceded ${sportEvent.goalsAgainst}.`}
-              </p>
-            </>
-          )}
-          {sportEvent.result === 'Draw' && (
-            <>
-              <p className='text-xl'>
-                <span className='font-bold text-xl'>Featured Event:&nbsp;</span>
-                {`${sportEvent.homeTeam} had a good game and drew ${sportEvent.goalsFor} - ${sportEvent.goalsAgainst} with ${sportEvent.awayTeam}.`}
-              </p>
-            </>
-          )}
-        </>
-      )}
-    </div>
+    <div>{sportEvent && <FeaturedSportEvent sportEvent={sportEvent} />}</div>
   );
 
   //  - created unique team list
   const gettingTeams = sportData.map((team) => team.homeTeam);
   const uniqueTeams = [...new Set(gettingTeams)];
   const teams = uniqueTeams.filter((team) => team !== undefined);
-
-  console.log(uniqueTeams);
 
   const teamList = (
     <ul className='mt-4'>
@@ -63,8 +32,6 @@ function SportInternal({
       ))}
     </ul>
   );
-
-  console.log({ teamList });
 
   return (
     <>
@@ -90,12 +57,7 @@ function SportInternal({
                   Get the match scores for every match this season.
                 </p>
               </div>
-              <Link
-                type='button'
-                to='/'
-                className='border h-10 border-gray-200 rounded-sm shadow p-1'>
-                Back
-              </Link>
+              <StandardBtn to={'/'} text={'Back'} />
             </div>
             <div className='flex flex-col mt-6 sm:flex-row items-center gap-1 w-2/3 mb-4 border border-gray-200 p-2 rounded-md shadow'>
               <div className='flex  flex-wrap gap-2 w-full  '>
@@ -152,12 +114,12 @@ function SportInternal({
                             </div>
                             <div
                               onClick={() => {
-                                console.log({ event });
+                                // - updates dashboard featured event headline and opens modal with headline
                                 setSportEvent(event);
                                 setOpen(true);
                               }}
                               className=' cursor-pointer hover:text-slate-400 p-1 border border-gray-200 rounded-md shadow'>
-                              More Info{' '}
+                              More Info
                             </div>
 
                             <hr className='w-full border border-gray-200 mx-auto my-2'></hr>

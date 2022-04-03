@@ -1,9 +1,8 @@
 import React from 'react';
 import parse from 'html-react-parser';
-import { Link } from 'react-router-dom';
+import StandardBtn from '../../../components/StandardBtn';
 
-function NewsInternal2({ html }) {
-  //   console.log(html);
+function NewsInternalRSS({ html }) {
   return (
     <>
       {html && (
@@ -13,12 +12,7 @@ function NewsInternal2({ html }) {
               <div className='w-full'>
                 <div className='flex justify-between items-center mt-4 mb-2'>
                   <div className='text-2xl mt-16 '>Latest News</div>
-                  <Link
-                    type='button'
-                    to='/'
-                    className='border h-10 border-gray-200 rounded-sm shadow p-1'>
-                    Back
-                  </Link>
+                  <StandardBtn text={'Back'} to={'/'} />
                 </div>
               </div>
             </div>
@@ -32,4 +26,4 @@ function NewsInternal2({ html }) {
   );
 }
 
-export default NewsInternal2;
+export default NewsInternalRSS;
