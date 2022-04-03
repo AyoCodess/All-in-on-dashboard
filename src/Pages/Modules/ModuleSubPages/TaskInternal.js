@@ -6,12 +6,11 @@ import StandardInput from '../../../components/StandardInput';
 import TaskBtn from '../../../components/TaskBtn';
 
 import { Link } from 'react-router-dom';
+import TaskStatus from '../../../components/TaskStatus';
 
 function TaskInternal({
   tasks,
   setTasks,
-  onInput,
-  setOnInput,
   setSelectedTask,
   selectedTask,
   taskTitle,
@@ -119,17 +118,10 @@ function TaskInternal({
           {tasks.map((item, i) => (
             <li key={item.id} className='py-4'>
               <div className='flex space-x-3'>
-                {/* <img
-                  className='h-6 w-6 rounded-full'
-                  src={item.person.imageUrl}
-                  alt=''
-                /> */}
                 {item.status}
                 <div className='flex flex-col gap-1 w-full '>
                   <div
                     onClick={() => {
-                      // setOnInput(true);
-                      console.log('clicked');
                       setSelectedTask(item.id);
                     }}
                     className='flex justify-between'>
@@ -137,11 +129,11 @@ function TaskInternal({
                       <h3 className='text-sm font-medium'>{item.title}</h3>
                       <p className='text-sm text-gray-500'>{item.task}</p>
                     </div>
-                    {item.status && <p className='text-green-500'>Done</p>}
-                    {!item.status && <p className='text-red-500'> New</p>}
+                    <TaskStatus item={item} />
                   </div>
                   {item.id === selectedTask && (
                     <>
+                      z
                       <div>
                         <div className='mt-1 flex items-center justify-between'>
                           <div className='flex flex-col items-center gap-1 w-2/3'>

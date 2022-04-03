@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Modal from '../../../components/Modal';
 import FeaturedSportEvent from '../ModalComponents/FeaturedSportEvent';
 import StandardBtn from '../../../components/StandardBtn';
+import StandardInput from '../../../components/StandardInput';
+import StandardBtnOnClick from '../../../components/StandardBtnOnClick';
 
 function SportInternal({
   sportData,
@@ -47,7 +49,7 @@ function SportInternal({
         content={teamList}
         title={'All searchable teams'}
       />
-      <div className='max-w-xl mx-auto mt-4'>
+      <div className='max-w-2xl mx-auto mt-4'>
         <div className='flex items-center justify-between'>
           <div className='w-full'>
             <div className='flex justify-between items-center mt-4 mb-2'>
@@ -61,21 +63,19 @@ function SportInternal({
             </div>
             <div className='flex flex-col mt-6 sm:flex-row items-center gap-1 w-2/3 mb-4 border border-gray-200 p-2 rounded-md shadow'>
               <div className='flex  flex-wrap gap-2 w-full  '>
-                <div className='flex flex-col sm:flex-row gap-4 '>
-                  <input
+                <div className='flex flex-col sm:flex-row gap-4 sm:gap-[4.5rem] '>
+                  <StandardInput
+                    placeholder='Search for a team'
                     onChange={(e) => {
                       setSelectedTeam(e.target.value.toLowerCase());
                     }}
-                    placeholder='Search for a team'
-                    autoComplete='off'
-                    type='text'
-                    className=' h-10 p-2 border-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md'
                   />
-                  <div
+
+                  <StandardBtnOnClick
                     onClick={() => setOpenTeams(true)}
-                    className='w-60 text-center border border-gray-200 shadow rounded-md p-1'>
-                    View Teams list
-                  </div>
+                    customStyles={'w-full'}
+                    text={'View Teams list'}
+                  />
                 </div>
 
                 {sportData.map((event, i) => {
@@ -112,15 +112,14 @@ function SportInternal({
                                 </div>
                               )}
                             </div>
-                            <div
+                            <StandardBtnOnClick
+                              text={'More Info'}
                               onClick={() => {
                                 // - updates dashboard featured event headline and opens modal with headline
                                 setSportEvent(event);
                                 setOpen(true);
                               }}
-                              className=' cursor-pointer hover:text-slate-400 p-1 border border-gray-200 rounded-md shadow'>
-                              More Info
-                            </div>
+                            />
 
                             <hr className='w-full border border-gray-200 mx-auto my-2'></hr>
                           </div>

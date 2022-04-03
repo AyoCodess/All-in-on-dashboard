@@ -15,6 +15,7 @@ import PhotosInternal from './Pages/Modules/ModuleSubPages/PhotosInternal';
 import TaskInternal from './Pages/Modules/ModuleSubPages/TaskInternal';
 import SportInternal from './Pages/Modules/ModuleSubPages/SportInternal';
 import NewsInternalRSS from './Pages/Modules/ModuleSubPages/NewsInternalRSS';
+import Account from './components/Login/Account';
 
 function App() {
   const API_BASE = 'http://localhost:3001';
@@ -243,6 +244,7 @@ function App() {
 
           {isAuthenticated && (
             <>
+              <Route path='/account' element={<Account user={user} />} />
               <Route
                 path='/news'
                 element={

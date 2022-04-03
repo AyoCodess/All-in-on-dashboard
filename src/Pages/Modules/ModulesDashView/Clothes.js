@@ -3,11 +3,11 @@ import axios from 'axios';
 import { PieChart } from 'react-minimal-pie-chart';
 
 const COLORS = {
-  jumper: '#FF7733',
-  hoodie: '#4DFF33',
-  jacket: '#334EFF',
-  sweater: '#f13C37',
-  blazer: '#FC33FF',
+  jumper: '#003f5c',
+  hoodie: '#58508d',
+  jacket: '#bc5090',
+  sweater: '#ff6361',
+  blazer: '#ffa600',
   raincoat: '#FEDF02',
 };
 
@@ -83,7 +83,7 @@ function Clothes() {
           />
         </div>
       )}
-      {isLoading && <div>Loading your data...</div>}
+      {isLoading && <div className='text-center'>Loading your data...</div>}
     </>
   );
 }

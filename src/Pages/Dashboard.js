@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginButton from '../components/Login/LoginButton';
-import Modules from './Modules/Modules';
+import Modules from './Modules/ModulesContainer';
 import { useAuth0 } from '@auth0/auth0-react';
 
 function Dashboard({

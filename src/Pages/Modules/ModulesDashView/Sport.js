@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import FeaturedSportEvent from '../ModalComponents/FeaturedSportEvent';
+import StandardBtnLarge from '../../../components/StandardBtnLarge';
 
 export default function Sport({ sportEvent }) {
   console.log({ sportEvent });
@@ -12,12 +13,8 @@ export default function Sport({ sportEvent }) {
       )}
 
       {sportEvent && <FeaturedSportEvent sportEvent={sportEvent} />}
-      <Link
-        className='border border-gray-200 rounded-md font-bold text-lg  shadow p-2 mt-2'
-        type='button'
-        to='/sports'>
-        View Results
-      </Link>
+
+      <StandardBtnLarge text={'View Results'} to={'/sports'} />
     </>
   );
 }

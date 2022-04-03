@@ -5,7 +5,7 @@ function LogoutButton({ logout }) {
     <button
       type='button'
       onClick={() => logout({ returnTo: window.location.origin })}
-      className='text-lg ml-3 sm:ml-6 md:ml-8 p-2 border border-gray-200 shadow rounded-md font-bold   w-32'>
+      className='text-lg p-2 border border-gray-200 shadow rounded-md font-bold w-32'>
       Logout
     </button>
   );

@@ -6,8 +6,9 @@ import Clothes from './ModulesDashView/Clothes';
 import Photos from './ModulesDashView/Photos';
 import LogoutButton from '../../components/Login/LogoutButton';
 import ModuleContainer from './ModalComponents/ModuleContainer';
+import HeaderBtn from '../../components/Login/HeaderBtn';
 
-function Modules({
+function ModulesContainer({
   user,
   newsData,
   newsError,
@@ -50,7 +51,8 @@ function Modules({
         <div className='mx-auto py-6 px-4 max-w-max sm:px-6 '>
           <div className='space-y-12'>
             <div className='space-y-5 sm:space-y-4  xl:max-w-none'>
-              <div className='flex items-center gap-5 justify-end mt-6'>
+              <div className='flex sm:flex-row items-center gap-2 sm:justify-end mt-6'>
+                {user && <HeaderBtn text={'Your Account'} to={'/account'} />}
                 {user && <LogoutButton logout={logout} />}
               </div>
 
@@ -69,4 +71,4 @@ function Modules({
   );
 }
 
-export default Modules;
+export default ModulesContainer;

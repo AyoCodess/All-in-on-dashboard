@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import StandardBtnLarge from '../../../components/StandardBtnLarge';
 
 function News({ newsData, newsError }) {
   return (
@@ -16,18 +17,8 @@ function News({ newsData, newsError }) {
             />
           </div>
           <div className='flex gap-2'>
-            <Link
-              type='button'
-              to='/news'
-              className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
-              Read More{' '}
-            </Link>
-            <Link
-              type='button'
-              to='/news-rss'
-              className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
-              News RSS
-            </Link>
+            <StandardBtnLarge text={' Read More'} to={'/news'} />
+            <StandardBtnLarge text={'News RSS'} to={'/news-rss'} />
           </div>
         </>
       )}
@@ -45,14 +36,8 @@ function News({ newsData, newsError }) {
             Something went wrong, please try again later. You can view you RSS
             feed only.
           </p>
-          <div className='flex gap-2'>
-            <Link
-              type='button'
-              to='/news-rss'
-              className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
-              News RSS
-            </Link>
-          </div>
+
+          <StandardBtnLarge text={'News RSS'} to={'/news-rss'} />
         </>
       )}
     </>

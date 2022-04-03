@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import StandardBtnLarge from '../../../components/StandardBtnLarge';
 
 function Photos({ fileArray }) {
   const latest = fileArray.slice(0, 6);
@@ -24,13 +25,16 @@ function Photos({ fileArray }) {
         </ul>
       )}
       <div>
-        <Link
-          className='border border-gray-200 p-2 font-bold text-lg shadow rounded-md mt-2'
-          type='button'
-          to='/photos'>
-          {fileArray.length > 0 && ' View Photos'}
-          {fileArray.length === 0 && ' Upload your first Photo!'}
-        </Link>
+        <StandardBtnLarge
+          text={
+            <div>
+              {' '}
+              {fileArray.length > 0 && ' View Photos'}
+              {fileArray.length === 0 && ' Upload your first Photo!'}
+            </div>
+          }
+          to={'/sports'}
+        />
       </div>
     </>
   );
