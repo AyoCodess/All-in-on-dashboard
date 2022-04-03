@@ -53,7 +53,7 @@ function TaskInternal({
       setIsInvalid(true);
     }
 
-    //. FRONT-END ONLY IMPLEMENTATION.
+    //. FRONT-END ONLY IMPLEMENTATION
     //     if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
     //       setTasks((prev) => {
     //         return [
@@ -74,7 +74,7 @@ function TaskInternal({
   const updateTaskHandler = (item) => {
     setTasks((prev) =>
       prev.map((t) =>
-        t.id === item.id
+        t._id === item._id
           ? {
               ...t,
               title: taskTitle ? taskTitle : t.title,
@@ -88,7 +88,7 @@ function TaskInternal({
   const updateStatusTaskHandler = (item) => {
     setTasks((prev) =>
       prev.map((t) =>
-        t.id === item.id
+        t._id === item._id
           ? {
               ...t,
               status: !t.status,
@@ -98,8 +98,29 @@ function TaskInternal({
     );
   };
 
-  const deleteTaskHandler = (item) => {
-    setTasks((prev) => prev.filter((t) => t.id !== item.id));
+  const deleteTaskHandler = async (item) => {
+    console.log({ item });
+    //. BACKEND IMPLEMENTATION
+
+    try {
+      const data = await fetch(API_BASE + '/task/delete/' + item._id, {
+        method: 'DELETE',
+      });
+      const response = await data.json();
+
+      setTasks((prev) =>
+        prev.filter((t) => {
+          console.log(t._id);
+          console.log(response._id);
+          return t._id !== response._id;
+        })
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    //. FRONT-END ONLY IMPLEMENTATION.
+    setTasks((prev) => prev.filter((t) => t._id !== item._id));
   };
 
   return (
@@ -140,13 +161,13 @@ function TaskInternal({
         </div>
         <ul className='divide-y divide-gray-200 mt-6'>
           {tasks.map((item, i) => (
-            <li key={item.id} className='py-4'>
+            <li key={item._id} className='py-4'>
               <div className='flex space-x-3'>
                 {item.status}
                 <div className='flex flex-col gap-1 w-full '>
                   <div
                     onClick={() => {
-                      setSelectedTask(item.id);
+                      setSelectedTask(item._id);
                     }}
                     className='flex justify-between'>
                     <div className='flex-col gap-1'>
@@ -155,7 +176,7 @@ function TaskInternal({
                     </div>
                     <TaskStatus item={item} />
                   </div>
-                  {item.id === selectedTask && (
+                  {item._id === selectedTask && (
                     <>
                       z
                       <div>
