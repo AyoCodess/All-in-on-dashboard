@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from '../../../components/Modal';
 import StandardBtn from '../../../components/StandardBtn';
 import StandardBtnOnClick from '../../../components/StandardBtnOnClick';
+import StandardInput from '../../../components/StandardInput';
 import TaskBtn from '../../../components/TaskBtn';
+
+import { Link } from 'react-router-dom';
 
 function TaskInternal({
   tasks,
   setTasks,
+  onInput,
+  setOnInput,
   setSelectedTask,
   selectedTask,
   taskTitle,
@@ -15,19 +19,15 @@ function TaskInternal({
   taskDescription,
   setTaskDescription,
 }) {
+  console.log({ selectedTask });
+
   const [isInvalid, setIsInvalid] = useState(false);
 
-  useEffect(() =>
-    localStorage.setItem('tasks', JSON.stringify(tasks), [tasks])
-  );
-
   useEffect(() => {
-    setSelectedTask('');
     setTaskTitle('');
     setTaskDescription('');
+    setSelectedTask('');
   }, [tasks]);
-
-  // - CRUD operations
 
   const createTaskHandler = () => {
     // - basic validation
@@ -77,8 +77,6 @@ function TaskInternal({
 
   const deleteTaskHandler = (item) => {
     setTasks((prev) => prev.filter((t) => t.id !== item.id));
-
-    setSelectedTask('');
   };
 
   return (
@@ -94,25 +92,20 @@ function TaskInternal({
           <div className='w-full'>
             <div className='flex justify-between items-center mt-4 mb-2'>
               <div className='text-2xl '>Add Task</div>
-              <StandardBtn to={'/'} text={'Back'} />
+
+              <StandardBtn text={'Back'} to={'/'} />
             </div>
             <div className='flex flex-col mt-10 sm:flex-row items-center gap-1 w-full mb-4 border border-gray-200 p-2 rounded-md shadow'>
               <div className='flex flex-wrap gap-2 '>
-                <input
+                <StandardInput
                   value={taskTitle}
+                  placeholder={'Task Title'}
                   onChange={(e) => setTaskTitle(e.target.value)}
-                  placeholder='Task Title'
-                  autoComplete='off'
-                  type='text'
-                  className=' h-10 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md'
                 />
-                <input
+                <StandardInput
                   value={taskDescription}
+                  placeholder={'Task description'}
                   onChange={(e) => setTaskDescription(e.target.value)}
-                  placeholder='Task description'
-                  autoComplete='off'
-                  type='text'
-                  className=' h-10 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md'
                 />
               </div>
             </div>
@@ -126,16 +119,23 @@ function TaskInternal({
           {tasks.map((item, i) => (
             <li key={item.id} className='py-4'>
               <div className='flex space-x-3'>
+                {/* <img
+                  className='h-6 w-6 rounded-full'
+                  src={item.person.imageUrl}
+                  alt=''
+                /> */}
                 {item.status}
                 <div className='flex flex-col gap-1 w-full '>
                   <div
                     onClick={() => {
+                      // setOnInput(true);
+                      console.log('clicked');
                       setSelectedTask(item.id);
                     }}
                     className='flex justify-between'>
                     <div className='flex-col gap-1'>
                       <h3 className='text-sm font-medium'>{item.title}</h3>
-                      <p className='text-sm text-gray-500'>{item.item}</p>
+                      <p className='text-sm text-gray-500'>{item.task}</p>
                     </div>
                     {item.status && <p className='text-green-500'>Done</p>}
                     {!item.status && <p className='text-red-500'> New</p>}
@@ -145,21 +145,16 @@ function TaskInternal({
                       <div>
                         <div className='mt-1 flex items-center justify-between'>
                           <div className='flex flex-col items-center gap-1 w-2/3'>
-                            <input
-                              onChange={(e) => setTaskTitle(e.target.value)}
+                            <StandardInput
                               placeholder='Change task title'
-                              autoComplete='off'
-                              type='text'
-                              className=' h-10 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md'
+                              onChange={(e) => setTaskTitle(e.target.value)}
                             />
-                            <input
+
+                            <StandardInput
+                              placeholder='Change task description'
                               onChange={(e) =>
                                 setTaskDescription(e.target.value)
                               }
-                              placeholder='Change task description'
-                              autoComplete='off'
-                              type='text'
-                              className=' h-10 p-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-12 sm:text-sm border-gray-300 rounded-md'
                             />
                           </div>
                           <div className='flex flex-col sm:items-center sm:flex-row gap-2'>
