@@ -71,31 +71,90 @@ function TaskInternal({
     //     }
   };
 
-  const updateTaskHandler = (item) => {
-    setTasks((prev) =>
-      prev.map((t) =>
-        t._id === item._id
-          ? {
-              ...t,
-              title: taskTitle ? taskTitle : t.title,
-              task: taskDescription ? taskDescription : t.task,
-            }
-          : t
-      )
-    );
+  const updateTaskHandler = async (item) => {
+    //. BACKEND IMPLEMENTATION
+    try {
+      const data = await fetch(API_BASE + '/task/update/' + item._id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: item._id,
+          title: taskTitle,
+          task: taskDescription,
+          timestamp: Date.now().valueOf(),
+        }),
+      });
+
+      const response = await data.json();
+
+      setTasks((prev) =>
+        prev.map((task) =>
+          task._id === response._id
+            ? { _id: task._id, title: taskTitle, task: taskDescription }
+            : task
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    //. FRONT-END ONLY IMPLEMENTATION
+    // setTasks((prev) =>
+    //   prev.map((t) =>
+    //     t._id === item._id
+    //       ? {
+    //           ...t,
+    //           title: taskTitle ? taskTitle : t.title,
+    //           task: taskDescription ? taskDescription : t.task,
+    //         }
+    //       : t
+    //   )
+    // );
   };
 
-  const updateStatusTaskHandler = (item) => {
-    setTasks((prev) =>
-      prev.map((t) =>
-        t._id === item._id
-          ? {
-              ...t,
-              status: !t.status,
-            }
-          : t
-      )
-    );
+  const updateStatusTaskHandler = async (item) => {
+    //. BACKEND IMPLEMENTATION
+    try {
+      const data = await fetch(API_BASE + '/task/update/' + item._id, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          _id: item._id,
+          title: item.title,
+          task: item.task,
+          status: !item.status,
+          timestamp: Date.now().valueOf(),
+        }),
+      });
+
+      const response = await data.json();
+
+      setTasks((prev) =>
+        prev.map((task) =>
+          task._id === response._id
+            ? { ...task, status: response.status }
+            : task
+        )
+      );
+    } catch (err) {
+      console.log(err);
+    }
+
+    // //. FRONT-END ONLY IMPLEMENTATION
+    // setTasks((prev) =>
+    //   prev.map((t) =>
+    //     t._id === item._id
+    //       ? {
+    //           ...t,
+    //           status: !t.status,
+    //         }
+    //       : t
+    //   )
+    // );
   };
 
   const deleteTaskHandler = async (item) => {
@@ -120,7 +179,13 @@ function TaskInternal({
     }
 
     //. FRONT-END ONLY IMPLEMENTATION.
-    setTasks((prev) => prev.filter((t) => t._id !== item._id));
+    // setTasks((prev) => prev.filter((t) => t._id !== item._id));
+  };
+
+  const clearFields = () => {
+    setTaskTitle('');
+    setTaskDescription('');
+    setSelectedTask('');
   };
 
   return (
@@ -136,7 +201,6 @@ function TaskInternal({
           <div className='w-full'>
             <div className='flex justify-between items-center mt-4 mb-2'>
               <div className='text-2xl '>Add Task</div>
-
               <StandardBtn text={'Back'} to={'/'} />
             </div>
             <div className='flex flex-col mt-10 sm:flex-row items-center gap-1 w-full mb-4 border border-gray-200 p-2 rounded-md shadow'>
@@ -153,10 +217,13 @@ function TaskInternal({
                 />
               </div>
             </div>
-            <StandardBtnOnClick
-              text={'Create Task'}
-              onClick={createTaskHandler}
-            />
+            <div className='flex gap-2'>
+              <StandardBtnOnClick
+                text={'Create Task'}
+                onClick={createTaskHandler}
+              />
+              <StandardBtnOnClick text={'Clear'} onClick={clearFields} />
+            </div>
           </div>
         </div>
         <ul className='divide-y divide-gray-200 mt-6'>
@@ -178,7 +245,6 @@ function TaskInternal({
                   </div>
                   {item._id === selectedTask && (
                     <>
-                      z
                       <div>
                         <div className='mt-1 flex items-center justify-between'>
                           <div className='flex flex-col items-center gap-1 w-2/3'>
