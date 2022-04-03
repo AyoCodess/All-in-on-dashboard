@@ -73,33 +73,37 @@ function TaskInternal({
 
   const updateTaskHandler = async (item) => {
     //. BACKEND IMPLEMENTATION
-    try {
-      const data = await fetch(API_BASE + '/task/update/' + item._id, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          _id: item._id,
-          title: taskTitle,
-          task: taskDescription,
-          timestamp: Date.now().valueOf(),
-        }),
-      });
 
-      const response = await data.json();
+    if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
+      try {
+        const data = await fetch(API_BASE + '/task/update/' + item._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            _id: item._id,
+            title: taskTitle,
+            task: taskDescription,
+            timestamp: Date.now().valueOf(),
+          }),
+        });
 
-      setTasks((prev) =>
-        prev.map((task) =>
-          task._id === response._id
-            ? { _id: task._id, title: taskTitle, task: taskDescription }
-            : task
-        )
-      );
-    } catch (err) {
-      console.log(err);
+        const response = await data.json();
+
+        setTasks((prev) =>
+          prev.map((task) =>
+            task._id === response._id
+              ? { _id: task._id, title: taskTitle, task: taskDescription }
+              : task
+          )
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      setIsInvalid(true);
     }
-
     //. FRONT-END ONLY IMPLEMENTATION
     // setTasks((prev) =>
     //   prev.map((t) =>
@@ -116,6 +120,7 @@ function TaskInternal({
 
   const updateStatusTaskHandler = async (item) => {
     //. BACKEND IMPLEMENTATION
+
     try {
       const data = await fetch(API_BASE + '/task/update/' + item._id, {
         method: 'PUT',
@@ -167,11 +172,13 @@ function TaskInternal({
       });
       const response = await data.json();
 
+      console.log({ response });
+
       setTasks((prev) =>
         prev.filter((t) => {
-          console.log(t._id);
-          console.log(response._id);
-          return t._id !== response._id;
+          console.log('id', t._id);
+          console.log('response.id', response._id);
+          return t._id !== item._id;
         })
       );
     } catch (err) {
