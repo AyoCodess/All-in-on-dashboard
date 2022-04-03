@@ -5,7 +5,6 @@ import StandardBtnOnClick from '../../../components/StandardBtnOnClick';
 import StandardInput from '../../../components/StandardInput';
 import TaskBtn from '../../../components/TaskBtn';
 
-import { Link } from 'react-router-dom';
 import TaskStatus from '../../../components/TaskStatus';
 
 function TaskInternal({
@@ -17,6 +16,7 @@ function TaskInternal({
   setTaskTitle,
   taskDescription,
   setTaskDescription,
+  API_BASE,
 }) {
   console.log({ selectedTask });
 
@@ -28,23 +28,47 @@ function TaskInternal({
     setSelectedTask('');
   }, [tasks]);
 
-  const createTaskHandler = () => {
-    // - basic validation
+  const createTaskHandler = async () => {
+    //. BACKEND IMPLEMENTATION
     if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
-      setTasks((prev) => {
-        return [
-          {
-            id: Date.now().valueOf(),
+      try {
+        const data = await fetch(API_BASE + '/task/new', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
             title: taskTitle,
             task: taskDescription,
-            status: false,
-          },
-          ...prev,
-        ];
-      });
+          }),
+        });
+
+        const response = await data.json();
+
+        setTasks([response, ...tasks]);
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       setIsInvalid(true);
     }
+
+    //. FRONT-END ONLY IMPLEMENTATION.
+    //     if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
+    //       setTasks((prev) => {
+    //         return [
+    //           {
+    //             id: Date.now().valueOf(),
+    //             title: taskTitle,
+    //             task: taskDescription,
+    //             status: false,
+    //           },
+    //           ...prev,
+    //         ];
+    //       });
+    //     } else {
+    //       setIsInvalid(true);
+    //     }
   };
 
   const updateTaskHandler = (item) => {

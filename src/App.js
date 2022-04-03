@@ -134,15 +134,15 @@ function App() {
 
   const [tasks, setTasks] = useState(InitialTask);
 
-  //. getting saved tasks
-  const savedTasks = localStorage.getItem('tasks');
-  const parsedTasks = JSON.parse(savedTasks);
+  //. getting saved tasks via local storage this was built before i created the backend
+  //   const savedTasks = localStorage.getItem('tasks');
+  //   const parsedTasks = JSON.parse(savedTasks);
 
-  useEffect(() => {
-    if (parsedTasks) {
-      setTasks(parsedTasks);
-    }
-  }, []);
+  //   useEffect(() => {
+  //     if (parsedTasks) {
+  //       setTasks(parsedTasks);
+  //     }
+  //   }, []);
 
   const [onInput, setOnInput] = useState(false);
   const [selectedTask, setSelectedTask] = useState(false);
@@ -150,20 +150,20 @@ function App() {
   const [taskDescription, setTaskDescription] = useState();
 
   // - backend for tasks
-  //   useEffect(() => {
-  //     getTasks();
-  //   }, []);
+  useEffect(() => {
+    getTasks();
+  }, []);
 
-  //   const getTasks = async () => {
-  //     try {
-  //       const response = await fetch(API_BASE + '/all-tasks');
-  //       const data = await response.json();
+  const getTasks = async () => {
+    try {
+      const response = await fetch(API_BASE + '/all-tasks');
+      const data = await response.json();
 
-  //       setTasks(data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
+      setTasks(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // - SPORT
 
@@ -280,6 +280,7 @@ function App() {
                     setTaskTitle={setTaskTitle}
                     taskDescription={taskDescription}
                     setTaskDescription={setTaskDescription}
+                    API_BASE={API_BASE}
                   />
                 }
               />
