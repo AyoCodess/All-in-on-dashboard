@@ -18,7 +18,7 @@ export default function Sport({ sportEvent }) {
                 <span className='font-bold text-gray-500 text-xl '>
                   Featured Event: &nbsp;
                 </span>
-                {` ${sportEvent.homeTeam} won they beat ${sportEvent.awayTeam} and scored ${sportEvent.goalsFor}.`}
+                {`${sportEvent.homeTeam} won they beat ${sportEvent.awayTeam} and scored ${sportEvent.goalsFor}.`}
               </p>
             </>
           )}

@@ -29,6 +29,13 @@ function PhotosInternal({
                 <p className='text-xl text-gray-500'>
                   Saving your best moments
                 </p>
+                <button
+                  className='border border-gray-200 p-2 shadow rounded-md'
+                  onClick={() => {
+                    setFile();
+                  }}>
+                  Click to Upload
+                </button>
               </div>
 
               <ul className='space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8'>
@@ -60,30 +67,9 @@ function PhotosInternal({
                   </li>
                 ))}
               </ul>
-
-              <button
-                className='border border-gray-200 p-2 shadow rounded-md'
-                onClick={() => {
-                  setFile();
-                }}>
-                Click to Upload
-              </button>
             </div>
           </div>
         </div>
-
-        {fileArray === 0 && (
-          <>
-            <button
-              className='border border-gray-200 p-2 shadow rounded-md'
-              onClick={() => {
-                setFile();
-              }}>
-              Click to Upload
-            </button>
-            <div>Upload images to you gallery</div>
-          </>
-        )}
       </div>
     </>
   );

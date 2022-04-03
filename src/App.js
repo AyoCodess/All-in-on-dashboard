@@ -14,6 +14,7 @@ import Loader from './components/Loader';
 import PhotosInternal from './Pages/PhotosInternal';
 import TaskInternal from './Pages/TaskInternal';
 import SportInternal from './Pages/SportInternal';
+import NewsInternal2 from './Pages/NewsInternal2';
 
 function App() {
   const API_BASE = 'http://localhost:3001';
@@ -23,6 +24,54 @@ function App() {
 
   const [newsData, setNewsData] = useState();
   const [newsError, setNewsError] = useState();
+
+  // - NEWS RSS
+
+  const RSS_URL = `https://news.un.org/feed/subscribe/en/news/all/rss.xml`;
+
+  // - tags are not closed invalid syntax http://feeds.bbci.co.uk/news/rss.xml
+
+  const [html, setHTML] = useState();
+
+  const fetchRSS = async () => {
+    try {
+      const response = await axios.get(RSS_URL);
+
+      const data = new window.DOMParser().parseFromString(
+        response.data,
+        'text/xml'
+      );
+
+      const items = data.querySelectorAll('item');
+
+      let html = ``;
+
+      console.log(items);
+
+      items.forEach((el) => {
+        html += `
+        <article class="flex flex-col gap-1 ">
+          <h2>
+            <a  class="hover:text-gray-500" href="${
+              el.querySelector('link').innerHTML
+            }" target="_blank" rel="noopener">
+              ${el.querySelector('title').innerHTML}
+            </a>
+          </h2>
+            <hr class='w-full border border-gray-200 mx-auto my-2'/>
+        </article>
+      `;
+      });
+
+      setHTML(html);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchRSS();
+  }, []);
 
   // - NEWS
   const newsApiCall = async () => {
@@ -143,8 +192,6 @@ function App() {
     }
   }, []);
 
-  console.log({ newResults });
-
   // - APP
   const { loginWithPopup, logout, user, isLoading, error, isAuthenticated } =
     useAuth0();
@@ -191,6 +238,7 @@ function App() {
                   <NewsInternal newsData={newsData} newsError={newsError} />
                 }
               />
+              <Route path='/news-rss' element={<NewsInternal2 html={html} />} />
               <Route
                 path='/photos'
                 element={

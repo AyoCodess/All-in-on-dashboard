@@ -15,12 +15,20 @@ function News({ newsData, newsError }) {
               className='object-cover h-48 w-96 rounded-md mt-2'
             />
           </div>
-          <Link
-            type='button'
-            to='/news'
-            className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
-            Read More{' '}
-          </Link>
+          <div className='flex gap-2'>
+            <Link
+              type='button'
+              to='/news'
+              className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
+              Read More{' '}
+            </Link>
+            <Link
+              type='button'
+              to='/news-rss'
+              className='p-2 border border-gray-200 shadow font-bold text-lg rounded-md mt-2'>
+              News RSS
+            </Link>
+          </div>
         </>
       )}
 

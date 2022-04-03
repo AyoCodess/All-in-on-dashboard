@@ -79,7 +79,7 @@ function Weather() {
       )}
 
       {data && !loading && (
-        <div className='flex flex-col  '>
+        <div className='flex flex-col pb-5  '>
           <div className='flex justify-between items-center'>
             <div className='relative'>
               <img
@@ -87,18 +87,18 @@ function Weather() {
                 src={`http://openweathermap.org/img/w/${icon}.png`}
                 alt=' weather icon'
               />
-              <div className=' absolute bottom-5 font-semibold mx-auto'>
+              <div className=' max-w-max text-center absolute bottom-[-1.9rem] left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-semibold mx-auto'>
                 {description}
               </div>
             </div>
-            <div className='relative pr-6'>
+            <div className='relative pr-6 mt-12'>
               <div className='text-6xl'>{temp}</div>
               <div className=' text-red text-4xl absolute top-[-1.35rem] left-[4.2rem]'>
                 c
               </div>
             </div>
           </div>
-          <div className='self-center text-3xl'>{city}</div>
+          <div className='self-center mt-5 text-3xl'>{city}</div>
 
           <div className='flex flex-col text-lg justify-center mx-auto text-center mt-3'>
             <div className='relative'>
