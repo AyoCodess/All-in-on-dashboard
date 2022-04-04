@@ -122,6 +122,8 @@ Most documentation on integration between the two libraries is outdated and base
 
 With my limited experience in the backend, I was learning as I went along. I have only written CRUD endpoints for the task manager. I did not have time to implement it for the photos. For context, this was my second time working with Express.js and Mongo DB, and I know I could quickly gain confidence with both libraries with practice.
 
+I did not have the time to learn how to host the project with an operational backend via heroku. This is an area very new to me, but I'm super interested in learning about it.
+
 ### #Note
 
 The hosted ve
