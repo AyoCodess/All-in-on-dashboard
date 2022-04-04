@@ -10,7 +10,7 @@ import AppContainer from './components/AppContainer';
 import { Routes, Route } from 'react-router-dom';
 import NewsInternal from './Pages/Modules/ModuleSubPages/NewsInternal';
 import axios from 'axios';
-import Loader from './components/Loader';
+import Loading from './components/Loading';
 import PhotosInternal from './Pages/Modules/ModuleSubPages/PhotosInternal';
 import TaskInternal from './Pages/Modules/ModuleSubPages/TaskInternal';
 import SportInternal from './Pages/Modules/ModuleSubPages/SportInternal';
@@ -213,7 +213,7 @@ function App() {
   if (isLoading) {
     return (
       <div className='flex justify-center items-center'>
-        <Loader />
+        <Loading />
       </div>
     );
   }
