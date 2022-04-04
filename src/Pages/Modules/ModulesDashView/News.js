@@ -1,6 +1,4 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import React from 'react';
 import StandardBtnLarge from '../../../components/StandardBtnLarge';
 
 function News({ newsData, newsError }) {

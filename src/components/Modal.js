@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { BellIcon, CheckIcon } from '@heroicons/react/outline';
+import { BellIcon } from '@heroicons/react/outline';
 
 export default function Example({ open, setOpen, content, title }) {
   const cancelButtonRef = useRef(null);

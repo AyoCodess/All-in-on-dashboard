@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import FeaturedSportEvent from '../ModalComponents/FeaturedSportEvent';
 import StandardBtnLarge from '../../../components/StandardBtnLarge';
 

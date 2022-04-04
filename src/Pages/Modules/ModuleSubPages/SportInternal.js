@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from '../../../components/Modal';
 import FeaturedSportEvent from '../ModalComponents/FeaturedSportEvent';
 import StandardBtn from '../../../components/StandardBtn';

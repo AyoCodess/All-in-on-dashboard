@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import StandardBtnLarge from '../../../components/StandardBtnLarge';
 
 function Photos({ fileArray }) {

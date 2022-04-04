@@ -1,6 +1,5 @@
 import React from 'react';
 import { CameraIcon } from '@heroicons/react/solid';
-import { Link } from 'react-router-dom';
 import StandardBtn from '../../../components/StandardBtn';
 
 function NewsInternal({ newsData, newsError }) {

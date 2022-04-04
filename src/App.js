@@ -48,7 +48,7 @@ function App() {
 
       let html = ` `;
 
-      let arr = Array.from(items).map(
+      Array.from(items).map(
         (item) =>
           (html += `
         <article class="flex flex-col gap-1 ">
