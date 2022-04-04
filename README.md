@@ -56,6 +56,7 @@ Mongo DB - Database
 5. Task Manager - Local Storage and Backend (Express, MongoDB) options implemented
 6. View the clothes someone wore in the past 1000 days (data visualisation)
 7. API call error states are handled visually
+8. Mobile responsive
 
 ## Problems I faced
 
@@ -117,7 +118,12 @@ With my limited experience in the backend, I was learning as I went along. I hav
 
 ### #Note
 
-The hosted version will be front-end only. For that implementation, I have used local storage for the CRUD operations.
+The hosted ve
+
+## Considerations
+
+1. Move module API call functions in App.js into separate files.
+2. Consider context API or Redux if app grows to manage state more efficiently. There was no need to use context at the apps current complexity.
 
 ### My overall experience
 
