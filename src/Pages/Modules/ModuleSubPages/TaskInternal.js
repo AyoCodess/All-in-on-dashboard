@@ -19,7 +19,7 @@ function TaskInternal({
   API_BASE,
 }) {
   const [isInvalid, setIsInvalid] = useState(false);
-  const [cancel, setCancel] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     setTaskTitle('');
@@ -29,7 +29,10 @@ function TaskInternal({
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
-  const cancelUpdate = () => setSelectedTask('');
+  const cancelUpdate = () => {
+    setSelectedTask('');
+    setIsUpdating(false);
+  };
 
   const createTaskHandler = async () => {
     //. BACKEND IMPLEMENTATION
@@ -69,6 +72,7 @@ function TaskInternal({
           ...prev,
         ];
       });
+      setIsUpdating(false);
     } else {
       setIsInvalid(true);
     }
@@ -120,6 +124,8 @@ function TaskInternal({
             : t
         )
       );
+
+      setIsUpdating(false);
     } else {
       setIsInvalid(true);
     }
@@ -166,6 +172,8 @@ function TaskInternal({
           : t
       )
     );
+
+    setIsUpdating(false);
   };
 
   const deleteTaskHandler = async (item) => {
@@ -193,6 +201,7 @@ function TaskInternal({
     setTaskTitle('');
     setTaskDescription('');
     setSelectedTask('');
+    setIsUpdating(false);
   };
 
   return (
@@ -211,18 +220,32 @@ function TaskInternal({
               <StandardBtn text={'Back'} to={'/'} />
             </div>
             <div className='flex flex-col mt-10 sm:flex-row items-center gap-1 w-full mb-4 border border-gray-200 p-2 rounded-md shadow'>
-              <div className='flex flex-wrap gap-2 '>
-                <StandardInput
-                  value={taskTitle}
-                  placeholder={'Task Title'}
-                  onChange={(e) => setTaskTitle(e.target.value)}
-                />
-                <StandardInput
-                  value={taskDescription}
-                  placeholder={'Task description'}
-                  onChange={(e) => setTaskDescription(e.target.value)}
-                />
-              </div>
+              {!isUpdating && (
+                <div className='flex flex-wrap gap-2 '>
+                  <StandardInput
+                    value={taskTitle}
+                    placeholder={'Task Title'}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                  />
+                  <StandardInput
+                    value={taskDescription}
+                    placeholder={'Task description'}
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                  />
+                </div>
+              )}
+              {isUpdating && (
+                <div className='flex flex-wrap gap-2 border-green-500 border rounded-md '>
+                  <StandardInput
+                    placeholder={'Task Title'}
+                    onChange={(e) => setTaskTitle(e.target.value)}
+                  />
+                  <StandardInput
+                    placeholder={'Task description'}
+                    onChange={(e) => setTaskDescription(e.target.value)}
+                  />
+                </div>
+              )}
             </div>
             <div className='text-gray-500 mt-2 mb-4'>
               Click on any task to update it
@@ -245,6 +268,7 @@ function TaskInternal({
                   <div
                     onClick={() => {
                       setSelectedTask(item._id);
+                      setIsUpdating(true);
                     }}
                     className='flex justify-between'>
                     <div className='flex-col gap-1'>
@@ -270,7 +294,7 @@ function TaskInternal({
                               }
                             />
                           </div>
-                          <div className='flex flex-col sm:items-center sm:flex-row gap-2'>
+                          <div className='flex flex-col gap-1 sm:items-center sm:flex-row sm:gap-2'>
                             <TaskBtn
                               text={'Change Status'}
                               onClick={() => updateStatusTaskHandler(item)}
