@@ -8,6 +8,10 @@ npm install
 npm start
 ```
 
+### Important Note:
+
+To run project locally auth0 authentication url needs to be changed to http://ocalhost:3000, it is currently set on the live domain. Only the admin (me) can change this. Contact me if you need to run this project locally or clone it and connect it to your own auth0 account.
+
 ## Project Links
 
 View Backend Server Code: https://github.com/AyoCodess/All-in-one-dashboard-FULLSTACK
