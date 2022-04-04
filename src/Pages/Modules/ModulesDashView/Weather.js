@@ -70,7 +70,11 @@ function Weather() {
 
   return (
     <>
-      {loading && !error && <div className='text-center'>Loading Data...</div>}
+      {loading && !error && (
+        <div className='text-center'>
+          The weather can take a while to load, hang in there...
+        </div>
+      )}
       {error && loading && (
         <div className='text-center'>
           Sorry, something went wrong. Try again later.
