@@ -106,6 +106,7 @@ I did not understand the meaning of most of the CSV column headings and could no
 
 ### Task Manager
 
+\*FIXED
 The user input value is displayed in the main input field when updating both update input fields dynamically.
 This can be solved by creating a separate update task module that is conditionally rendered in the task manager, avoiding this behavior.
 
