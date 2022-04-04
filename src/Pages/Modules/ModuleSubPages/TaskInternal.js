@@ -19,6 +19,7 @@ function TaskInternal({
   API_BASE,
 }) {
   const [isInvalid, setIsInvalid] = useState(false);
+  const [cancel, setCancel] = useState(false);
 
   useEffect(() => {
     setTaskTitle('');
@@ -27,6 +28,8 @@ function TaskInternal({
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
+
+  const cancelUpdate = () => setSelectedTask('');
 
   const createTaskHandler = async () => {
     //. BACKEND IMPLEMENTATION
@@ -58,7 +61,7 @@ function TaskInternal({
       setTasks((prev) => {
         return [
           {
-            id: Date.now().valueOf(),
+            _id: Date.now().valueOf(),
             title: taskTitle,
             task: taskDescription,
             status: false,
@@ -281,6 +284,11 @@ function TaskInternal({
                               text={'Update'}
                               customStyles={'max-w-max'}
                               onClick={() => updateTaskHandler(item)}
+                            />
+                            <TaskBtn
+                              text={'Cancel'}
+                              customStyles={'max-w-max'}
+                              onClick={() => cancelUpdate(item)}
                             />
                           </div>
                         </div>
