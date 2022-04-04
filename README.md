@@ -10,7 +10,9 @@ npm start
 
 ### Important Note:
 
-To run project locally auth0 authentication url needs to be changed to http://ocalhost:3000, it is currently set on the live domain. Only the admin (me) can change this. Contact me if you need to run this project locally or clone it and connect it to your own auth0 account.
+To run this project locally, the auth0 authentication URL needs to be changed to http://ocalhost:3000.
+
+It is currently set on the live domain. Only the admin (me) can change this. Contact me if you need to run this project locally or a better option is to connect your local version with your own auth0 account.
 
 ## Project Links
 
