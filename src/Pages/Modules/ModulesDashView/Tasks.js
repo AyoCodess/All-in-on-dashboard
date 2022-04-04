@@ -30,7 +30,7 @@ export default function Tasks({ tasks, setTasks }) {
             {tasks.length === 0 && 'Add you first task!'}
           </div>
         }
-        to={'/all-Tasks'}
+        to={'/all-tasks'}
       />
     </>
   );

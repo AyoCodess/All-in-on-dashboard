@@ -78,7 +78,7 @@ function App() {
   const newsApiCall = async () => {
     try {
       const response = await axios.get(
-        `https://gnews.io/api/v4/top-headlines?&country=gb&language=en&max=1&token=a27f532d3ec421ef7722073709f54ba4`
+        `https://ggnews.io/api/v4/top-headlines?&country=gb&language=en&max=1&token=a27f532d3ec421ef7722073709f54ba4`
       );
 
       const data = response.data.articles;
