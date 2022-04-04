@@ -167,6 +167,8 @@ function TaskInternal({
         t._id === item._id
           ? {
               ...t,
+              title: taskTitle ? taskTitle : t.title,
+              task: taskDescription ? taskDescription : t.task,
               status: !t.status,
             }
           : t
@@ -224,7 +226,7 @@ function TaskInternal({
                 <div className='flex flex-wrap gap-2 '>
                   <StandardInput
                     value={taskTitle}
-                    placeholder={'Task Title'}
+                    placeholder={'Task title'}
                     onChange={(e) => setTaskTitle(e.target.value)}
                   />
                   <StandardInput
@@ -237,7 +239,7 @@ function TaskInternal({
               {isUpdating && (
                 <div className='flex flex-wrap gap-2 border-green-500 border rounded-md '>
                   <StandardInput
-                    placeholder={'Task Title'}
+                    placeholder={'Task title'}
                     onChange={(e) => setTaskTitle(e.target.value)}
                   />
                   <StandardInput
