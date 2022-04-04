@@ -18,6 +18,7 @@ import NewsInternalRSS from './Pages/Modules/ModuleSubPages/NewsInternalRSS';
 import Account from './components/Login/Account';
 
 function App() {
+  // . NOTE: app api keys are currently hardcoded due to .env issue.
   const API_BASE = 'http://localhost:3001';
 
   // - modal
@@ -65,7 +66,7 @@ function App() {
 
       setHTML(html);
     } catch (err) {
-      console.err(err);
+      console.error(err);
     }
   };
 
@@ -77,7 +78,7 @@ function App() {
   const newsApiCall = async () => {
     try {
       const response = await axios.get(
-        `https://gnews.io/api/v4/top-headlines?&country=gb&language=en&max=1&token=a27f532d3ec421ef7722073709f54ba4`
+        `https://ggnews.io/api/v4/top-headlines?&country=gb&language=en&max=1&token=a27f532d3ec421ef7722073709f54ba4`
       );
 
       const data = response.data.articles;
@@ -135,35 +136,36 @@ function App() {
   const [tasks, setTasks] = useState(InitialTask);
 
   //. getting saved tasks via local storage this was built before i created the backend
-  //   const savedTasks = localStorage.getItem('tasks');
-  //   const parsedTasks = JSON.parse(savedTasks);
+  const savedTasks = localStorage.getItem('tasks');
+  const parsedTasks = JSON.parse(savedTasks);
 
+  useEffect(() => {
+    if (parsedTasks) {
+      setTasks(parsedTasks);
+    }
+  }, []);
+
+  // . getting saved tasks from backend
   //   useEffect(() => {
-  //     if (parsedTasks) {
-  //       setTasks(parsedTasks);
-  //     }
+  //     getTasks();
   //   }, []);
+
+  //   const getTasks = async () => {
+  //     try {
+  //       const response = await fetch(API_BASE + '/all-tasks');
+  //       const data = await response.json();
+
+  //       setTasks(data);
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
 
   const [onInput, setOnInput] = useState(false);
   const [selectedTask, setSelectedTask] = useState(false);
   const [taskTitle, setTaskTitle] = useState();
   const [taskDescription, setTaskDescription] = useState();
 
-  // - backend for tasks
-  useEffect(() => {
-    getTasks();
-  }, []);
-
-  const getTasks = async () => {
-    try {
-      const response = await fetch(API_BASE + '/all-tasks');
-      const data = await response.json();
-
-      setTasks(data);
-    } catch (err) {
-      console.err(err);
-    }
-  };
+  //   };
 
   // - SPORT
 

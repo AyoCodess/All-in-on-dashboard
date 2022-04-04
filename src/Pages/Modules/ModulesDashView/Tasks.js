@@ -13,7 +13,7 @@ export default function Tasks({ tasks, setTasks }) {
     <>
       {latest.map((task) => {
         return (
-          <div key={task.id}>
+          <div key={task._id}>
             <div className='mt-1 relative flex  items-center justify-between text-xl'>
               <h3 className='p-1  '>{task.title}</h3>
 

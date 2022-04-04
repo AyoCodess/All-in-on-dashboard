@@ -24,162 +24,166 @@ function TaskInternal({
     setTaskTitle('');
     setTaskDescription('');
     setSelectedTask('');
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
   const createTaskHandler = async () => {
     //. BACKEND IMPLEMENTATION
+    // if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
+    //   try {
+    //     const data = await fetch(API_BASE + '/task/new', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({
+    //         title: taskTitle,
+    //         task: taskDescription,
+    //       }),
+    //     });
+
+    //     const response = await data.json();
+
+    //     setTasks([response, ...tasks]);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // } else {
+    //   setIsInvalid(true);
+    // }
+
+    //. FRONT-END ONLY IMPLEMENTATION
     if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
-      try {
-        const data = await fetch(API_BASE + '/task/new', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
+      setTasks((prev) => {
+        return [
+          {
+            id: Date.now().valueOf(),
             title: taskTitle,
             task: taskDescription,
-          }),
-        });
-
-        const response = await data.json();
-
-        setTasks([response, ...tasks]);
-      } catch (err) {
-        console.log(err);
-      }
+            status: false,
+          },
+          ...prev,
+        ];
+      });
     } else {
       setIsInvalid(true);
     }
-
-    //. FRONT-END ONLY IMPLEMENTATION
-    //     if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
-    //       setTasks((prev) => {
-    //         return [
-    //           {
-    //             id: Date.now().valueOf(),
-    //             title: taskTitle,
-    //             task: taskDescription,
-    //             status: false,
-    //           },
-    //           ...prev,
-    //         ];
-    //       });
-    //     } else {
-    //       setIsInvalid(true);
-    //     }
   };
 
   const updateTaskHandler = async (item) => {
     //. BACKEND IMPLEMENTATION
+    // if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
+    //   try {
+    //     const data = await fetch(API_BASE + '/task/update/' + item._id, {
+    //       method: 'PUT',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({
+    //         _id: item._id,
+    //         title: taskTitle,
+    //         task: taskDescription,
+    //         timestamp: Date.now().valueOf(),
+    //       }),
+    //     });
 
+    //     const response = await data.json();
+
+    //     setTasks((prev) =>
+    //       prev.map((task) =>
+    //         task._id === response._id
+    //           ? { _id: task._id, title: taskTitle, task: taskDescription }
+    //           : task
+    //       )
+    //     );
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // } else {
+    //   setIsInvalid(true);
+    // }
+
+    //. FRONT-END ONLY IMPLEMENTATION
     if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
-      try {
-        const data = await fetch(API_BASE + '/task/update/' + item._id, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            _id: item._id,
-            title: taskTitle,
-            task: taskDescription,
-            timestamp: Date.now().valueOf(),
-          }),
-        });
-
-        const response = await data.json();
-
-        setTasks((prev) =>
-          prev.map((task) =>
-            task._id === response._id
-              ? { _id: task._id, title: taskTitle, task: taskDescription }
-              : task
-          )
-        );
-      } catch (err) {
-        console.log(err);
-      }
+      setTasks((prev) =>
+        prev.map((t) =>
+          t._id === item._id
+            ? {
+                ...t,
+                title: taskTitle ? taskTitle : t.title,
+                task: taskDescription ? taskDescription : t.task,
+              }
+            : t
+        )
+      );
     } else {
       setIsInvalid(true);
     }
-    //. FRONT-END ONLY IMPLEMENTATION
-    // setTasks((prev) =>
-    //   prev.map((t) =>
-    //     t._id === item._id
-    //       ? {
-    //           ...t,
-    //           title: taskTitle ? taskTitle : t.title,
-    //           task: taskDescription ? taskDescription : t.task,
-    //         }
-    //       : t
-    //   )
-    // );
   };
 
   const updateStatusTaskHandler = async (item) => {
     //. BACKEND IMPLEMENTATION
+    // try {
+    //   const data = await fetch(API_BASE + '/task/update/' + item._id, {
+    //     method: 'PUT',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       _id: item._id,
+    //       title: item.title,
+    //       task: item.task,
+    //       status: !item.status,
+    //       timestamp: Date.now().valueOf(),
+    //     }),
+    //   });
 
-    try {
-      const data = await fetch(API_BASE + '/task/update/' + item._id, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          _id: item._id,
-          title: item.title,
-          task: item.task,
-          status: !item.status,
-          timestamp: Date.now().valueOf(),
-        }),
-      });
+    //   const response = await data.json();
 
-      const response = await data.json();
+    //   setTasks((prev) =>
+    //     prev.map((task) =>
+    //       task._id === response._id
+    //         ? { ...task, status: response.status }
+    //         : task
+    //     )
+    //   );
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
-      setTasks((prev) =>
-        prev.map((task) =>
-          task._id === response._id
-            ? { ...task, status: response.status }
-            : task
-        )
-      );
-    } catch (err) {
-      console.log(err);
-    }
-
-    // //. FRONT-END ONLY IMPLEMENTATION
-    // setTasks((prev) =>
-    //   prev.map((t) =>
-    //     t._id === item._id
-    //       ? {
-    //           ...t,
-    //           status: !t.status,
-    //         }
-    //       : t
-    //   )
-    // );
+    //. FRONT-END ONLY IMPLEMENTATION
+    setTasks((prev) =>
+      prev.map((t) =>
+        t._id === item._id
+          ? {
+              ...t,
+              status: !t.status,
+            }
+          : t
+      )
+    );
   };
 
   const deleteTaskHandler = async (item) => {
     //. BACKEND IMPLEMENTATION
+    // try {
+    //   const data = await fetch(API_BASE + '/task/delete/' + item._id, {
+    //     method: 'DELETE',
+    //   });
+    //   const response = await data.json();
 
-    try {
-      const data = await fetch(API_BASE + '/task/delete/' + item._id, {
-        method: 'DELETE',
-      });
-      const response = await data.json();
-
-      setTasks((prev) =>
-        prev.filter((t) => {
-          return t._id !== item._id;
-        })
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    //   setTasks((prev) =>
+    //     prev.filter((t) => {
+    //       return t._id !== item._id;
+    //     })
+    //   );
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
     //. FRONT-END ONLY IMPLEMENTATION.
-    // setTasks((prev) => prev.filter((t) => t._id !== item._id));
+    setTasks((prev) => prev.filter((t) => t._id !== item._id));
   };
 
   const clearFields = () => {
@@ -227,7 +231,7 @@ function TaskInternal({
           </div>
         </div>
         <ul className='divide-y divide-gray-200 mt-6'>
-          {tasks.map((item, i) => (
+          {tasks.map((item) => (
             <li key={item._id} className='py-4'>
               <div className='flex space-x-3'>
                 {item.status}
