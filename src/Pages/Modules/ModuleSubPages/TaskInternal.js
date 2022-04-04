@@ -18,8 +18,6 @@ function TaskInternal({
   setTaskDescription,
   API_BASE,
 }) {
-  console.log({ selectedTask });
-
   const [isInvalid, setIsInvalid] = useState(false);
 
   useEffect(() => {
@@ -163,7 +161,6 @@ function TaskInternal({
   };
 
   const deleteTaskHandler = async (item) => {
-    console.log({ item });
     //. BACKEND IMPLEMENTATION
 
     try {
@@ -172,12 +169,8 @@ function TaskInternal({
       });
       const response = await data.json();
 
-      console.log({ response });
-
       setTasks((prev) =>
         prev.filter((t) => {
-          console.log('id', t._id);
-          console.log('response.id', response._id);
           return t._id !== item._id;
         })
       );

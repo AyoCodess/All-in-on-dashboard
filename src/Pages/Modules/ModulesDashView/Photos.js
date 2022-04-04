@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import StandardBtnLarge from '../../../components/StandardBtnLarge';
 
 function Photos({ fileArray }) {
-  const latest = fileArray.slice(0, 6);
+  const latest = fileArray.slice(0, 4);
 
   return (
     <>
@@ -33,7 +33,7 @@ function Photos({ fileArray }) {
               {fileArray.length === 0 && ' Upload your first Photo!'}
             </div>
           }
-          to={'/sports'}
+          to={'/photos'}
         />
       </div>
     </>

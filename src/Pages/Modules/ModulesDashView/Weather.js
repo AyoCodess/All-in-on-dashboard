@@ -31,7 +31,7 @@ function Weather() {
   const getLocation = () => {
     setLoading(true);
     if (!navigator.geolocation) {
-      console.log('Geolocation is not supported by your browser');
+      console.err('Geolocation is not supported by your browser');
       setError(true);
     } else {
       navigator.geolocation.getCurrentPosition(
@@ -42,7 +42,7 @@ function Weather() {
           });
         },
         () => {
-          console.log('Unable to retrieve your location');
+          console.err('Unable to retrieve your location');
         }
       );
     }
@@ -68,7 +68,6 @@ function Weather() {
     description = data.weather[0].description;
   }
 
-  console.log({ data });
   return (
     <>
       {loading && !error && <div className='text-center'>Loading Data...</div>}

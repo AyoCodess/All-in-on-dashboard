@@ -3,7 +3,6 @@ import FeaturedSportEvent from '../ModalComponents/FeaturedSportEvent';
 import StandardBtnLarge from '../../../components/StandardBtnLarge';
 
 export default function Sport({ sportEvent }) {
-  console.log({ sportEvent });
   return (
     <>
       {!sportEvent && (

@@ -29,7 +29,7 @@ function ModulesContainer({
       module: <News newsData={newsData} newsError={newsError} />,
     },
     {
-      name: 'Football Headlines',
+      name: 'Football Board',
       module: <Sport sportEvent={sportEvent} />,
     },
     {

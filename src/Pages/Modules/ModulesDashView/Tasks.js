@@ -9,8 +9,6 @@ export default function Tasks({ tasks, setTasks }) {
     latest = tasks.slice(0, 3);
   }
 
-  console.log({ tasks });
-
   return (
     <>
       {latest.map((task) => {

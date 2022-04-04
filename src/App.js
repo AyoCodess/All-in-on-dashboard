@@ -65,7 +65,7 @@ function App() {
 
       setHTML(html);
     } catch (err) {
-      console.log(err);
+      console.err(err);
     }
   };
 
@@ -161,7 +161,7 @@ function App() {
 
       setTasks(data);
     } catch (err) {
-      console.log(err);
+      console.err(err);
     }
   };
 

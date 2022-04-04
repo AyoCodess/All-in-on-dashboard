@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from '../../../components/Modal';
 import FeaturedSportEvent from '../ModalComponents/FeaturedSportEvent';
@@ -16,6 +16,9 @@ function SportInternal({
   sportEvent,
 }) {
   const [openTeams, setOpenTeams] = useState(false);
+  const [openChallenge, setOpenChallenge] = useState(false);
+  const [selectedTeamWins, setSelectedTeamWins] = useState(false);
+
   const modalContent = (
     <div>{sportEvent && <FeaturedSportEvent sportEvent={sportEvent} />}</div>
   );
@@ -35,6 +38,37 @@ function SportInternal({
     </ul>
   );
 
+  // - champions league challenge
+
+  useEffect(() => {
+    if (selectedTeam) {
+      const selectedTeamData = sportData.filter(
+        (event) => selectedTeam === event.homeTeam
+      );
+      const wins = selectedTeamData.filter((e) => e.result === 'Win');
+      setSelectedTeamWins(wins);
+    }
+  }, [selectedTeam]);
+
+  const challenge = (
+    <ul className='mt-4'>
+      {selectedTeamWins && (
+        <>
+          {selectedTeamWins.map((e, i) => (
+            <>
+              <li key={i} className='text-left mt-1 '>
+                Defeated:&nbsp;
+                <span className='font-bold'>{e.awayTeam}</span> -&nbsp;
+                <span className='text-green-500'>{e.result}</span>
+              </li>
+              <hr className='w-full border border-gray-200 mx-auto my-2'></hr>
+            </>
+          ))}
+        </>
+      )}
+    </ul>
+  );
+
   return (
     <>
       <Modal
@@ -48,6 +82,16 @@ function SportInternal({
         setOpen={setOpenTeams}
         content={teamList}
         title={'All searchable teams'}
+      />
+      <Modal
+        open={openChallenge}
+        setOpen={setOpenChallenge}
+        content={
+          challenge ? challenge : <div>Please search for a team first</div>
+        }
+        title={
+          selectedTeam ? `${selectedTeam}'s Wins` : 'Please search for a team'
+        }
       />
       <div className='max-w-2xl mx-auto mt-4'>
         <div className='flex items-center justify-between'>
@@ -77,6 +121,11 @@ function SportInternal({
                     text={'View Teams list'}
                   />
                 </div>
+                <StandardBtnOnClick
+                  onClick={() => setOpenChallenge(true)}
+                  customStyles={'w-full'}
+                  text={'View selected teams wins'}
+                />
 
                 {sportData.map((event, i) => {
                   if (selectedTeam === event.homeTeam) {
