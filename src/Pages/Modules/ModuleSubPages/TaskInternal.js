@@ -54,7 +54,7 @@ function TaskInternal({
     // }
 
     //. FRONT-END ONLY IMPLEMENTATION
-    if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
+    if (taskTitle.trim().length > 0 || taskDescription.length > 0) {
       setTasks((prev) => {
         return [
           {
@@ -105,7 +105,7 @@ function TaskInternal({
     // }
 
     //. FRONT-END ONLY IMPLEMENTATION
-    if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
+    if (taskTitle.trim().length > 0 || taskDescription.length > 0) {
       setTasks((prev) =>
         prev.map((t) =>
           t._id === item._id
@@ -221,6 +221,9 @@ function TaskInternal({
                 />
               </div>
             </div>
+            <div className='text-gray-500 mt-2 mb-4'>
+              Click on any task to update it
+            </div>
             <div className='flex gap-2'>
               <StandardBtnOnClick
                 text={'Create Task'}
@@ -230,7 +233,7 @@ function TaskInternal({
             </div>
           </div>
         </div>
-        <ul className='divide-y divide-gray-200 mt-6'>
+        <ul className='divide-y divide-gray-200 mt-6 cursor-pointer'>
           {tasks.map((item) => (
             <li key={item._id} className='py-4'>
               <div className='flex space-x-3'>
