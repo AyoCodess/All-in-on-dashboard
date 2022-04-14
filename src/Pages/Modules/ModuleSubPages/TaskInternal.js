@@ -36,46 +36,46 @@ function TaskInternal({
 
   const createTaskHandler = async () => {
     //. BACKEND IMPLEMENTATION
-    // if (taskTitle.trim().length > 0 && taskDescription.length > 0) {
-    //   try {
-    //     const data = await fetch(API_BASE + '/task/new', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({
-    //         title: taskTitle,
-    //         task: taskDescription,
-    //       }),
-    //     });
-
-    //     const response = await data.json();
-
-    //     setTasks([response, ...tasks]);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // } else {
-    //   setIsInvalid(true);
-    // }
-
-    //. FRONT-END ONLY IMPLEMENTATION
-    if (taskTitle.trim().length > 0 || taskDescription.length > 0) {
-      setTasks((prev) => {
-        return [
-          {
-            _id: Date.now().valueOf(),
+    if (taskTitle.trim().length > 0 && taskDescription.trim().length > 0) {
+      try {
+        const data = await fetch(API_BASE + '/task/new', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
             title: taskTitle,
             task: taskDescription,
-            status: false,
-          },
-          ...prev,
-        ];
-      });
-      setIsUpdating(false);
+          }),
+        });
+
+        const response = await data.json();
+
+        setTasks([response, ...tasks]);
+      } catch (err) {
+        console.log(err);
+      }
     } else {
       setIsInvalid(true);
     }
+
+    //. FRONT-END ONLY IMPLEMENTATION
+    // if (taskTitle.trim().length > 0 || taskDescription.length > 0) {
+    //   setTasks((prev) => {
+    //     return [
+    //       {
+    //         _id: Date.now().valueOf(),
+    //         title: taskTitle,
+    //         task: taskDescription,
+    //         status: false,
+    //       },
+    //       ...prev,
+    //     ];
+    //   });
+    //   setIsUpdating(false);
+    // } else {
+    //   setIsInvalid(true);
+    // }
   };
 
   const updateTaskHandler = async (item) => {

@@ -23,6 +23,7 @@ function Clothes() {
           'https://therapy-box.co.uk/hackathon/clothing-api.php?username=swapnil'
         );
 
+        // - array of objects
         const rawData = response.data.payload;
 
         const totalDataCount = rawData.reduce((totalCount, { clothe }) => {

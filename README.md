@@ -126,10 +126,6 @@ With my limited experience in the backend, I was learning as I went along. I hav
 
 I did not have the time to learn how to host the project with an operational backend via heroku. This is an area very new to me, but I'm super interested in learning about it.
 
-### #Note
-
-The hosted ve
-
 ## Considerations
 
 1. Move module API call functions in App.js into separate files.
